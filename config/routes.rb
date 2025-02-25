@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 
-  resources :tenders, only: [:index, :show, :new, :edit, :update] do
+  resources :tenders, only: [:index, :show, :new, :create, :edit, :update] do
     resources :submissions, only: [:index, :create]
   end
 

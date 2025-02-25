@@ -1,0 +1,12 @@
+<%= simple_form_for @tender do |f| %>
+  <%= f.input :title, label: 'Project Name' %>
+  <%= f.input :synopsis, label: 'Synopsis' %>
+  <h4 class="text-center my-4">Select Categories</h4>
+  <%= f.simple_fields_for :selected_prerequisites do |r| %>
+    <%= r.association :prerequisite %>
+  <% end %>
+  <%= f.simple_fields_for :selected_prerequisites do |r| %>
+    <%= r.association :prerequisite %>
+  <% end %>
+  <%= f.submit class: 'btn btn-primary mt-3' %>
+<% end %>
