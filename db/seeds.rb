@@ -10,16 +10,22 @@ require 'faker'
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts "destroying everything..."
-User.destroy_all
-Tender.destroy_all
-Submission.destroy_all
-SelectedPrerequisite.destroy_all
 CompatibleResponse.destroy_all
+SelectedPrerequisite.destroy_all
+Submission.destroy_all
+Tender.destroy_all
+User.destroy_all
+Prerequisite.destroy_all
 puts "everything destroyed..."
 
-PREREQUISITES = ["Safety", "budget control", "woman things", "man spaces", "art installation"]
+PREREQUISITES = ["health and safety", "budget control", "quality", "qualifications", "environment"]
+puts "creating prerequisites..."
+PREREQUISITES.each do |name|
+  Prerequisite.create!(name: name)
+end
 
-puts "creating new instances..."
+puts "created #{Prerequisite.count} prerequisite"
+puts "creating new users..."
 5.times do
   user = User.new(
     company_name: Faker::Company.name,
@@ -41,56 +47,69 @@ end
   user.save!
 end
 
-puts "users created..."
+puts "#{User.count} users created..."
 
 puts "creating tenders..."
-5.times do
+[true, false].each do |boolean|
   User.where(owner: true).each do |user|
     tender = Tender.new(
       user: user,
       synopsis: Faker::Quotes::Shakespeare.hamlet_quote,
       title: Faker::Book.author,
-      published: true,
-
+      published: boolean
     )
     tender.save!
+    Prerequisite.all.shuffle.first(4).each do |prerequisite|
+      selected_prerequisite = SelectedPrerequisite.new(
+        tender: tender,
+        prerequisite: prerequisite,
+        description: Faker::Quotes::Chiquito.sentence,
+        approved: boolean
+      )
+      selected_prerequisite.save!
+    end
   end
 end
-
-5.times do
-  User.where(owner: true).each do |user|
-    tender = Tender.new(
-      user: user,
-      synopsis: Faker::Quotes::Shakespeare.hamlet_quote,
-      title: Faker::Book.author,
-      published: false
-    )
-    tender.save!
-  end
-end
-puts "tenders created..."
+puts "#{Tender.count} tenders created..."
 
 puts "creating submissions..."
 
-5.times do
-  User.where(owner: false).each do |user|
-    submission = Submission.new(
-      user: user,
-      published: true,
-      shortlisted: true
+# simulating a completed bid process for contractor right cool.
+User.where(owner: false).each do |user|
+  tender = Tender.all.sample
+  submission = Submission.new(
+    tender: tender,
+    user: user,
+    published: true,
+    shortlisted: true
+  )
+  submission.save!
+  tender.selected_prerequisites.each do |prereq|
+    compatible_response = CompatibleResponse.new(
+      selected_prerequisite: prereq,
+      submission: submission,
+      notes: Faker::Fantasy::Tolkien.poem,
+      score: rand(1..100)
     )
-    submission.save!
+    compatible_response.save!
   end
 end
-
-5.times do
-  User.where(owner: false).each do |user|
-    submission = Submission.new(
-      user: user,
-      published: false,
-      shortlisted: false
+# simulating a bid process that just started for a contractor right cool.
+User.where(owner: false).each do |user|
+  tender = Tender.where.not(id: user.tenders_as_bidder).sample
+  submission = Submission.new(
+    tender: tender,
+    user: user,
+    published: false,
+    shortlisted: false
+  )
+  submission.save!
+  tender.selected_prerequisites.each do |prereq|
+    compatible_response = CompatibleResponse.new(
+      selected_prerequisite: prereq,
+      submission: submission
     )
-    submission.save!
+    compatible_response.save!
   end
 end
 puts "submissions created..."
@@ -98,44 +117,6 @@ puts "submissions created..."
 puts "creating selected prerequisites..."
 
 
-5.times do
-  Tender.each do |tender|
-    selected_prerequisite = SelectedPrerequisite.new(
-      tender: tender,
-      prerequisite_id: PREREQUISITES.sample.index,
-      description: Faker::Quotes::Chiquito.sentence,
-      approved: true
-    )
-    selected_prerequisite.save!
-  end
-end
-
-5.times do
-  Tender.each do |tender|
-    selected_prerequisite = SelectedPrerequisite.new(
-      tender: tender,
-      prerequisite_id: PREREQUISITES.sample.index,
-      description: Faker::Quotes::Chiquito.sentence,
-      approved: false
-    )
-    selected_prerequisite.save!
-  end
-end
 puts "selected prerequisites created..."
-
-puts "creating compatible responses..."
-
-5.times do
-  Submission.tender.selected_prerequisite.each do |selected_prerequisite|
-    compatible_response = CompatibleResponse.new(
-      selected_prerequisite: selected_prerequisite,
-      submission: selected_prerequisite.submission,
-      notes: Faker::Fantasy::Tolkien.poem,
-      score: rand(1..100)
-    )
-    compatible_response.save!
-  end
-end
-puts "compatible responses created!"
 
 puts "created #{User.count}users, #{Tender.count}tenders, #{Submission.count}submissions, #{SelectedPrerequisite.count}selected prerequisites, and #{CompatibleResponse.count}compatible responses!"

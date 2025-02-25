@@ -3,8 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :tenders
+  has_many :tenders #tenders we created.
   has_many :submissions
+  has_many :tenders_as_bidder, through: :submissions, source: :tender
   validates :company_name, presence: true
   validates :email, presence: true
   validates :address, presence: true
