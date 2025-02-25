@@ -1,5 +1,5 @@
 class SelectedPrerequisitesController < ApplicationController
-  before_action :set_selected_prerequisite, only: %i[edit update]
+  before_action :selected_prerequisite, only: %i[edit update]
 
   def edit
   end
