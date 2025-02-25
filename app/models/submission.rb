@@ -1,7 +1,7 @@
 class Submission < ApplicationRecord
   belongs_to :user
   belongs_to :tender
-  has_many :compatible_response, dependent: :destroy
+  has_many :compatible_responses, dependent: :destroy
   validates :published, inclusion: [true, false]
   validates :published, exclusion: [nil]
   validates :shortlisted, inclusion: [true, false]
