@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :tenders
   has_many :submissions
+  validates :company_name, :email, :address, presence: true
 end
