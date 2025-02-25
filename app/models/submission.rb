@@ -6,4 +6,5 @@ class Submission < ApplicationRecord
   validates :published, exclusion: [nil]
   validates :shortlisted, inclusion: [true, false]
   validates :shortlisted, exclusion: [nil]
+  validates :tender, uniqueness: { scope: :user }
 end
