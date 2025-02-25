@@ -25,91 +25,117 @@ puts "creating new instances..."
     company_name: Faker::Company.name,
     email: Faker::Internet.email(domain: 'gmail.com'),
     address: Faker::Address.street_address,
-    owner: true
+    owner: true,
+    password: "123123"
   )
   user.save!
-  end
-  5.times do
-    user = User.new(
-      company_name: Faker::Company.name,
-      email: Faker::Internet.email(domain: 'gmail.com'),
-      address: Faker::Address.street_address,
-      owner: false
-    )
-    user.save!
-  end
+end
+5.times do
+  user = User.new(
+    company_name: Faker::Company.name,
+    email: Faker::Internet.email(domain: 'gmail.com'),
+    address: Faker::Address.street_address,
+    owner: false,
+    password: "123123"
+  )
+  user.save!
+end
 
 puts "users created..."
 
 puts "creating tenders..."
 5.times do
-  tender = Tender.new(
-    synopsis: Faker::Quotes::Shakespeare.hamlet_quote(minimum: 100),
-    title: Faker::Book.author,
-    published: true
-  )
-  tender.save!
+  User.where(owner: true).each do |user|
+    tender = Tender.new(
+      user: user,
+      synopsis: Faker::Quotes::Shakespeare.hamlet_quote,
+      title: Faker::Book.author,
+      published: true,
+
+    )
+    tender.save!
+  end
 end
 
 5.times do
-  tender = Tender.new(
-    synopsis: Faker::Quotes::Shakespeare.hamlet_quote(minimum: 100),
-    title: Faker::Book.author,
-    published: false
-  )
-  tender.save!
+  User.where(owner: true).each do |user|
+    tender = Tender.new(
+      user: user,
+      synopsis: Faker::Quotes::Shakespeare.hamlet_quote,
+      title: Faker::Book.author,
+      published: false
+    )
+    tender.save!
+  end
 end
 puts "tenders created..."
 
 puts "creating submissions..."
 
 5.times do
-  submission = Submission.new(
-    published: true,
-    shortlisted: true
-  )
-  submission.save!
+  User.where(owner: false).each do |user|
+    submission = Submission.new(
+      user: user,
+      published: true,
+      shortlisted: true
+    )
+    submission.save!
+  end
 end
 
 5.times do
-  submission = Submission.new(
-    published: false,
-    shortlisted: false
-  )
-  submission.save!
+  User.where(owner: false).each do |user|
+    submission = Submission.new(
+      user: user,
+      published: false,
+      shortlisted: false
+    )
+    submission.save!
+  end
 end
-
 puts "submissions created..."
 
 puts "creating selected prerequisites..."
 
+
 5.times do
-  selected_prerequisite = SelectedPrerequisite.new(
-    description: Faker::Quotes::Chiquito.sentence,
-    approved: true
-  )
-  selected_prerequisite.save!
+  Tender.each do |tender|
+    selected_prerequisite = SelectedPrerequisite.new(
+      tender: tender,
+      prerequisite_id: PREREQUISITES.sample.index,
+      description: Faker::Quotes::Chiquito.sentence,
+      approved: true
+    )
+    selected_prerequisite.save!
+  end
 end
 
 5.times do
-  selected_prerequisite = SelectedPrerequisite.new(
-    description: Faker::Quotes::Chiquito.sentence,
-    approved: false
-  )
-  selected_prerequisite.save!
+  Tender.each do |tender|
+    selected_prerequisite = SelectedPrerequisite.new(
+      tender: tender,
+      prerequisite_id: PREREQUISITES.sample.index,
+      description: Faker::Quotes::Chiquito.sentence,
+      approved: false
+    )
+    selected_prerequisite.save!
+  end
 end
-
 puts "selected prerequisites created..."
 
 puts "creating compatible responses..."
-5.times do
-  compatible_response = CompatibleResponse.new(
-    notes: Faker::Fantasy::Tolkien.poem,
-    score: rand(1..100)
-  )
-  compatible_response.save!
-end
 
+5.times do
+  Submission.tender.selected_prerequisite.each do |selected_prerequisite|
+    compatible_response = CompatibleResponse.new(
+      selected_prerequisite: selected_prerequisite,
+      submission: selected_prerequisite.submission,
+      notes: Faker::Fantasy::Tolkien.poem,
+      score: rand(1..100)
+    )
+    compatible_response.save!
+  end
+end
 puts "compatible responses created!"
 
 puts "created #{User.count}users, #{Tender.count}tenders, #{Submission.count}submissions, #{SelectedPrerequisite.count}selected prerequisites, and #{CompatibleResponse.count}compatible responses!"
