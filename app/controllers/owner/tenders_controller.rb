@@ -1,5 +1,5 @@
 class Owner::TendersController < ApplicationController
   def index
-    @tenders = current_user.tenders
+    @tenders = policy_scope([:owner, Tender])
   end
 end
