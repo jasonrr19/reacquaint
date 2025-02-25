@@ -7,7 +7,7 @@ class TendersController < ApplicationController
   def show
     @tender = Tender.find(params[:id])
     @user = User.find(params[:id])
-    @prerequisite = Prerequisite.find(params[:id])
+    # @prerequisite = Prerequisite.find(params[:id])
     @selected_prerequisite = @tender.selected_prerequisites
   end
 
