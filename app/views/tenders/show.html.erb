@@ -1,2 +1,20 @@
-<h1>Tenders#show</h1>
-<p>Find me in app/views/tenders/show.html.erb</p>
+<% if @tender.published %>
+
+<%= render "published" %>
+
+  <div class="d-flex justify-content-around">
+    <div><%= link_to "Compatibility", @tender %></div>
+    <div><%= link_to "Query API", @tender %></div>
+    <div><%= link_to "Download PDF", @tender %></div>
+  </div>
+
+<% else %>
+
+<%= render "published" %>
+
+  <div class="d-flex justify-content-around">
+    <div><%= link_to "Published", @tender %></div>
+    <div><%= link_to "Save Draft", @tender %></div>
+  </div>
+
+<% end %>

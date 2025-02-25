@@ -1,0 +1,20 @@
+  <div class="text-center">
+  <div>
+    <p class="border border-dark bg-primary">Project Name: <%= @tender.title %></p>
+  </div>
+  <div>
+    <p class="border border-dark bg-warning">Project synopsis: <%= @tender.synopsis %></p>
+  </div>
+  <div>
+    <p class="border border-dark bg-info">Specify Project Requirements</p>
+  </div>
+  <div>
+    <p>Published?: <%= @tender.published %></p>
+    <% @selected_prerequisite.each_with_index do |prerequesite, index| %>
+    <p class="border border-dark bg-primary">Requirement Specification <%= index + 1%>:</p>
+    <%= prerequesite.description %>
+    <p>    <%= link_to "button", edit_selected_prerequisite_path(prerequesite), class: "btn btn-primary" %></p>
+    <% end  %>
+  </div>
+</div>
+</div>
