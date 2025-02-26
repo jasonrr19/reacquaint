@@ -1,19 +1,20 @@
+<% if @tender.published %>
 
-<div class="text-center">
-  <div>
-    <p class="border border-dark bg-primary">Project Name: <%= @tender.title %></p>
-  </div>
-  <div>
-    <p class="border border-dark bg-warning">Project synopsis: <%= @tender.synopsis %></p>
-  </div>
-  <div>
-    <p class="border border-dark bg-info">Specify Project Requirements</p>
-  </div>
-  <div>
-    <% @selected_prerequisite.each_with_index do |prerequesite, index| %>
-    <p class="border border-dark bg-primary">Requirement Specification <%= index + 1%>:</p>
-    <%= prerequesite.description %>
-    <% end  %>
+<%= render "published" %>
+
+  <div class="d-flex justify-content-around">
+    <div><%= link_to "Compatibility", @tender %></div>
+    <div><%= link_to "Query API", @tender %></div>
+    <div><%= link_to "Download PDF", @tender %></div>
   </div>
 
+<% else %>
+
+<%= render "published" %>
+
+<div class="d-flex justify-content-around m-2">
+  <div> <%= render 'form' %> </div>
+  <div> <%= link_to "Save Draft", @tender %></div>
 </div>
+
+<% end %>

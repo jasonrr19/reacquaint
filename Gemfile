@@ -52,7 +52,7 @@ gem "font-awesome-sass", "~> 6.1"
 gem "ostruct"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
-
+gem "pundit"
 group :development, :test do
   gem "dotenv-rails"
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -75,3 +75,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'cloudinary', '~> 1.16.0'
+gem "ruby-openai"

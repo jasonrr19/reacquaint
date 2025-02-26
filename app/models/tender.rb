@@ -5,5 +5,6 @@ class Tender < ApplicationRecord
   has_many :submissions, dependent: :destroy
   validates :synopsis, presence: true
   validates :title, presence: true
+  has_many_attached :documents
   # validates :published, presence: true
 end

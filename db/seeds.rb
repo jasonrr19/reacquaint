@@ -25,6 +25,28 @@ PREREQUISITES.each do |name|
 end
 
 puts "created #{Prerequisite.count} prerequisite"
+
+puts "creating owner user..."
+owner = User.new(
+  company_name: "Owner Limited",
+  email: "owner@gmail.com",
+  address: "Owner Street, Ownersville",
+  owner: true,
+  password: "123123"
+)
+owner.save!
+
+puts "creating bidder user..."
+bidder = User.new(
+  company_name: "Bidder Limited",
+  email: "bidder@gmail.com",
+  address: "Bidder Lane, Bidderburg",
+  owner: false,
+  password: "123123"
+)
+bidder.save!
+
+
 puts "creating new users..."
 5.times do
   user = User.new(

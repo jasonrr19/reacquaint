@@ -7,4 +7,5 @@ class Submission < ApplicationRecord
   validates :shortlisted, inclusion: [true, false]
   validates :shortlisted, exclusion: [nil]
   validates :tender, uniqueness: { scope: :user }
+  has_many_attached :documents
 end
