@@ -1,7 +1,7 @@
 class TendersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show ]
   def index
-    @user = User.all
+    @tender = Tender.all
   end
 
   def show
@@ -23,7 +23,6 @@ class TendersController < ApplicationController
     if @tender.save
       redirect_to tender_path(@tender)
     else
-      raise
       render 'new', status: :unprocessable_entity
     end
   end
