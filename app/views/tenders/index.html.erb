@@ -1,10 +1,8 @@
 <div class="container">
-  <div class="row justify-content-center align-items-center vh-100">
-    <div class="col-md-6">
-        <% @tenders.each do |tender| %>
-          <%= render "tenders/card", tender: tender  %>
-        <% end %>
-    </div>
+  <div class="cards my-3">
+    <% @tenders.each do |tender| %>
+      <%= render "tenders/card", tender: tender  %>
+    <% end %>
   </div>
 </div>
 <div class="container">
