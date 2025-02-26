@@ -1,0 +1,4 @@
+    <%= simple_form_for @tender do |f| %>
+      <%= f.input :published, as: :hidden, input_html: { value: 'true'} %>
+      <%= f.submit 'Publish', class: 'btn btn-success' %>
+    <% end %>
