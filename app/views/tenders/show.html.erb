@@ -12,9 +12,9 @@
 
 <%= render "published" %>
 
-  <div class="d-flex justify-content-around">
-    <div><%= link_to "Published", @tender %></div>
-    <div><%= link_to "Save Draft", @tender %></div>
-  </div>
+<div class="d-flex justify-content-around m-2">
+  <div> <%= render 'form' %> </div>
+  <div> <%= link_to "Save Draft", @tender %></div>
+</div>
 
 <% end %>

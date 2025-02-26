@@ -30,11 +30,15 @@ class TendersController < ApplicationController
   end
 
   def update
+    @tender = Tender.find(params[:id])
+    authorize @tender
+    @tender.update(tender_params)
+    redirect_to tender_path(@tender)
   end
 
   private
 
   def tender_params
-    params.require(:tender).permit(:title, :synopsis, selected_prerequisites_attributes: [:prerequisite_id])
+    params.require(:tender).permit(:title, :synopsis, :published, selected_prerequisites_attributes: [:prerequisite_id])
   end
 end

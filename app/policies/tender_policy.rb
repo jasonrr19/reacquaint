@@ -17,6 +17,10 @@ class TenderPolicy < ApplicationPolicy
   end
 
   def create?
-    return true
+    user.owner
+  end
+
+  def update?
+    user == record.user
   end
 end
