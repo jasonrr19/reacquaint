@@ -1,18 +1,20 @@
-<div class="col-md-8 mx-auto">
-  <h2 class="text-center"><%= @tender.title %></h2>
+<div class="col-md-7 mx-auto">
+  <h2 class="mt-3 text-center"><%= @tender.title %></h2>
   <div>
     <p class="pt-3"><%= @tender.synopsis %> Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi rerum laborum ab aspernatur totam maxime cumque delectus hic, consectetur molestias, dolore, facere officiis excepturi. Nobis quo nostrum impedit dicta fugiat.</p>
   </div>
   <div >
-    <p class="">Specify Project Requirements</p>
+    <h4 class="py-2 text-center">Specify Project Requirements</h4>
   </div>
   <div>
     <% @selected_prerequisite.each_with_index do |prerequesite, index| %>
-      <h5 class="text-center">Requirement Specification <%= index + 1%>:</h5>
-      <p class="py-2"><%= prerequesite.description %></p>
-      <% if policy(prerequesite).edit? %>
-        <p>    <%= link_to "edit", edit_selected_prerequisite_path(prerequesite), class: "btn btn-primary" %></p>
-      <% end %>
-    <% end  %>
+      <h5 class="text-center mb-0">Requirement Specification <%= index + 1%>:</h5>
+      <p class="d-flex justify-content-between p-3">
+        <%= prerequesite.description %>
+        <% if policy(prerequesite).edit? %>
+          <%= link_to "edit", edit_selected_prerequisite_path(prerequesite), class: "btn btn-outline-info" %>
+        <% end %>
+      <% end  %>
+    </p>
   </div>
 </div>
