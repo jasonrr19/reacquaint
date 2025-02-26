@@ -3,5 +3,8 @@
     <div class="card-body">
       <%= tender.title %>
     </div>
+    <div style="text-decoration: none;">
+      <%= link_to 'Submissions', tender_submissions_path(tender)  %>
+    </div>
   </div>
 <% end %>
