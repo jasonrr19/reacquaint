@@ -2,9 +2,11 @@ class SelectedPrerequisitesController < ApplicationController
   before_action :selected_prerequisite, only: %i[edit update]
 
   def edit
+    authorize @selected_prerequisite
   end
 
   def update
+    authorize @selected_prerequisite
     if @selected_prerequisite.update(selected_prerequisite_params)
       redirect_to tender_path(@selected_prerequisite.tender), notice: "updated!"
     else
