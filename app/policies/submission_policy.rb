@@ -7,8 +7,17 @@ class SubmissionPolicy < ApplicationPolicy
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      scope.where(published: true)
+    end
   end
+
+  def index?
+
+  end
+
+  def show?
+    true
+  end
+
 end
