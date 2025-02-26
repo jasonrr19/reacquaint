@@ -8,7 +8,7 @@ class Owner::TenderPolicy < ApplicationPolicy
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      user.tenders
+      user.tenders.where(published: true)
     end
   end
 end
