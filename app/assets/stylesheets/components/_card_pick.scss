@@ -1,0 +1,27 @@
+.card-pick {
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 0px 16px rgba(0, 0, 0, 0.3);
+}
+.card-pick img {
+  width: 100%;
+  min-height: 100px;
+  flex-grow: 1;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border-radius: 4px 4px 0 0;
+}
+.card-pick-info {
+  padding: 24px 16px;
+}
+.card-pick-info h2 {
+  margin: 0;
+}
+.card-pick:hover {
+  transition: 0.2s ease-out;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
