@@ -1,10 +1,12 @@
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
-  <div class="card shadow-sm hover-shadow-1g">
-    <div class="card-body">
-      <%= tender.title %>
+  <div class="">
+    <div class="text-black">
+      <p>Projects: <%= tender.title %></p>
     </div>
-    <div style="text-decoration: none;">
-      <%= link_to 'Submissions', tender_submissions_path(tender)  %>
+    <div class="" style="text-decoration: none;">
+      <%= link_to 'Submissions', tender_submissions_path(tender),
+                                class: "text-black",
+                                style: "text-decoration: none;" %>
     </div>
   </div>
 <% end %>

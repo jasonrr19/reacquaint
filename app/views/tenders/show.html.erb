@@ -1,5 +1,5 @@
 <% if @tender.published %>
-  <%= link_to tenders_path, class: 'btn btn-primary m-3' do %>
+  <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
     <i class="fa-solid fa-arrow-left"></i>
   <% end %>
   <%= render "published" %>
@@ -15,11 +15,12 @@
     </div>
   </div>
 <% else %>
+  <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
+    <i class="fa-solid fa-arrow-left"></i>
+  <% end %>
   <%= render "published" %>
   <div class="d-flex justify-content-around align-items-center">
-    <div>
-      <%= link_to 'Go back', tender_path, class: 'btn btn-primary' %>
-    </div>
+
     <div>
       <%= render 'form' %>
     </div>
