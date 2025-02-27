@@ -16,7 +16,9 @@
             <%= link_to "Profile", owner_tenders_path, class: "nav-link text-white" %>
           </li>
           <li class="nav-item active">
-            <%= link_to "Create Tender", new_tender_path, class: "nav-link text-white" %>
+            <% if policy(Tender).new? %>
+              <%= link_to "New Tender", new_tender_path, class: "nav-link text-white" %>
+            <% end %>
           </li>
           <li class="nav-item dropdown">
             <%= image_tag "account-logo", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
