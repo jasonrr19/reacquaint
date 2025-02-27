@@ -12,8 +12,10 @@
 
 
       <div class="card-pick-info">
-        <p>Project: <%= tender.title %></p>
-        <p><%= tender.synopsis %></p>
+        <%= link_to tender_path(tender), class: "text-decoration-none" do %>
+        <p class= "text-black", style= "text-decoration: none" >Project: <%= tender.title %></p>
+        <p class= "text-black", style= "text-decoration: none"><%= tender.synopsis %></p>
+        <% end %>
       </div>
 
       </div>

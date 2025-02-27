@@ -1,6 +1,12 @@
 <% if @tender.published %>
-  <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
-    <i class="fa-solid fa-arrow-left"></i>
+  <% if current_user.owner %>
+    <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
+  <% else %>
+    <%= link_to tenders_path, class: 'btn btn-primary m-3' do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
   <% end %>
   <%= render "published" %>
   <div class="d-flex justify-content-around mb-3">
@@ -20,7 +26,6 @@
   <% end %>
   <%= render "published" %>
   <div class="d-flex justify-content-around align-items-center">
-
     <div>
       <%= render 'form' %>
     </div>
