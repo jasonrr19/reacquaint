@@ -1,0 +1,29 @@
+.tag-item {
+}
+
+.tag-selector {
+  position: absolute;
+  transform: scale(0);
+}
+
+.tag-selector + label {
+  cursor: pointer;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  padding: 20px 10px 20px 10px;
+  border: 1px solid #EAEAEA;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.tag-selector:checked + label {
+  background-color: $purple;
+  color: white;
+}
+
+.tender_selected_prerequisites_prerequisite {
+  legend {
+    display: none;
+  }
+}
