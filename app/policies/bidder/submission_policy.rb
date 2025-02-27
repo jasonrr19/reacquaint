@@ -1,4 +1,4 @@
-class TenderPolicy < ApplicationPolicy
+class Bidder::SubmissionPolicy < ApplicationPolicy
   # NOTE: Up to Pundit v2.3.1, the inheritance was declared as
   # `Scope < Scope` rather than `Scope < ApplicationPolicy::Scope`.
   # In most cases the behavior will be identical, but if updating existing
@@ -10,22 +10,5 @@ class TenderPolicy < ApplicationPolicy
     def resolve
       scope.all
     end
-  end
-
-  # Using this for submission index
-  def index?
-    user == record.user
-  end
-
-  def show?
-    return true
-  end
-
-  def create?
-    user.owner
-  end
-
-  def update?
-    user == record.user
   end
 end
