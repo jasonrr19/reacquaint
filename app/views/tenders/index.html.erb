@@ -1,12 +1,10 @@
 <div class="container">
-  <div class="cards my-3">
-    <% @tenders.each do |tender| %>
-      <div class="card">
-        <div class="card-title">
-          <%= render "tenders/card", tender: tender  %>
-        </div>
-        <%= tender.published %>
+  <% @tenders.each do |tender| %>
+    <div class="card-product">
+      <div class="card-product-infos">
+        <h2><%= tender.title %></h2>
+        <p><%= tender.synopsis %></p>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
