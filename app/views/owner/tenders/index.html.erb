@@ -1,9 +1,20 @@
 <div class="container">
   <div class="cards my-3">
     <% @tenders.each do |tender| %>
-      <%= render "tenders/card", tender: tender  %>
+      <div class="card-pick">
+        <div class="d-flex mt-2 ms-2">
+          <% if tender.published == true %>
+          <p class="m-0 btn btn-success rounded-pill">Published</p>
+          <% else %>
+          <p class="m-0 btn btn-warning rounded-pill">Unpublished</p>
+          <% end %>
+
+        </div>
+        <div class="card-pick-info">
+          <%= render "tenders/card", tender: tender  %>
+        </div>
+      </div>
     <% end %>
   </div>
-</div>
-<div class="container">
+
 </div>
