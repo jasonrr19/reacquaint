@@ -1,20 +1,28 @@
 <% if @tender.published %>
-
-<%= render "published" %>
-
-  <div class="d-flex justify-content-around">
-    <div><%= link_to "Compatibility", @tender %></div>
-    <div><%= link_to "Query API", @tender %></div>
-    <div><%= link_to "Download PDF", @tender %></div>
+  <%= link_to tenders_path, class: 'btn btn-primary m-3' do %>
+    <i class="fa-solid fa-arrow-left"></i>
+  <% end %>
+  <%= render "published" %>
+  <div class="d-flex justify-content-around mb-3">
+    <div>
+      <%= link_to "Compatibility", @tender, class: 'btn btn-success' %>
+    </div>
+    <div>
+      <%= link_to "Query API", @tender,  class: 'btn btn-outline-primary' %>
+    </div>
+    <div>
+      <%= link_to "Download PDF", @tender,  class: 'btn btn-primary' %>
+    </div>
   </div>
-
 <% else %>
-
-<%= render "published" %>
-
-<div class="d-flex justify-content-around m-2">
-  <div> <%= render 'form' %> </div>
-  <div> <%= link_to "Save Draft", @tender %></div>
-</div>
-
+  <%= render "published" %>
+  <div class="d-flex justify-content-around align-items-center">
+    <div>
+      <%= link_to 'Go back', tenders_path, class: 'btn btn-primary' %>
+    </div>
+    <div>
+      <%= render 'form' %>
+    </div>
+    <div> <%= link_to "Save Draft", @tender, class: 'btn btn-secondary' %></div>
+  </div>
 <% end %>

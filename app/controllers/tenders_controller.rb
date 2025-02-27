@@ -24,7 +24,6 @@ class TendersController < ApplicationController
     if @tender.save
       redirect_to tender_path(@tender)
     else
-      raise
       render 'new', status: :unprocessable_entity
     end
   end
