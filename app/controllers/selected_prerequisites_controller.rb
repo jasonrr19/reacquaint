@@ -3,6 +3,12 @@ class SelectedPrerequisitesController < ApplicationController
 
   def edit
     authorize @selected_prerequisite
+    if @selected_prerequisite.description.present? && @selected_prerequisite.analysis.nil?
+      openai_service = OpenaiService.new(@selected_prerequisite)
+      @selected_prerequisite.analysis = openai_service.analyse
+      @selected_prerequisite.suggested_rewrite = openai_service.rewrite
+      @selected_prerequisite.save
+    end
   end
 
   def update
