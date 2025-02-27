@@ -1,8 +1,33 @@
-  <%= link_to tender_path, class: "btn btn-primary m-3" do %>
+<%= link_to tender_path, class: "btn btn-primary m-3" do %>
   <i class="fa-solid fa-arrow-left"></i>
 <% end %>
-<%= simple_form_for(@selected_prerequisite) do |f| %>
-  <%= f.input :description %>
-  <%= f.input :approved %>
-  <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-5">
+      <%= simple_form_for(@selected_prerequisite) do |f| %>
+        <%= f.input :description %>
+        <%= f.input :approved %>
+        <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
+      <% end %></div>
+    <div class="col-7">
+      <div class="row d-flex flex-column">
+        <div class="col p-3">
+          <div>
+            <h3>Analysis of Description</h3>
+          </div>
+          <div>
+            <%= @selected_prerequisite.analysis.html_safe %>
+          </div>
+        </div>
+        <div class="col p-3">
+          <div>
+            <h3>Suggested Rewrite</h3>
+          </div>
+          <div>
+            <%= @selected_prerequisite.suggested_rewrite.html_safe %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
