@@ -1,0 +1,19 @@
+  <%= link_to bidder_submissions_path, class: "btn btn-primary m-3" do %>
+  <i class="fa-solid fa-arrow-left"></i>
+<% end %>
+<h1>Submissions#index</h1>
+<div class="container">
+  <div>
+  </div>
+  <p>Submissions:</p>
+  <div>
+    <% @submissions.each do |submission| %>
+      <div>Project Name: <%= submission.tender.title %></div>
+      <div>Project Synopsis: <%= submission.tender.synopsis %></div>
+      <p>Company Name: <%= submission.user.company_name %></p>
+      <% submission.compatible_responses.each do |response| %>
+        <p><%= response.selected_prerequisite.prerequisite.name %> <%= response.score %></p>
+      <% end  %>
+    <% end %>
+  </div>
+</div>
