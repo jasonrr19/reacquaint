@@ -1,10 +1,22 @@
 <div class="container">
-  <% @tenders.each do |tender| %>
-    <div class="card-product">
-      <div class="card-product-infos">
-        <h2><%= tender.title %></h2>
+  <div class="cards my-3">
+    <% @tenders.each do |tender| %>
+      <div class="card-pick">
+        <div class="d-flex mt-2 ms-2">
+          <% if tender.published == true %>
+          <p class="m-0 btn btn-success rounded-pill">Published</p>
+          <% else %>
+          <p class="m-0 btn btn-warning rounded-pill">Unpublished</p>
+          <% end %>
+        </div>
+
+
+      <div class="card-pick-info">
+        <p>Project: <%= tender.title %></p>
         <p><%= tender.synopsis %></p>
       </div>
-    </div>
-  <% end %>
+
+      </div>
+    <% end %>
+  </div>
 </div>
