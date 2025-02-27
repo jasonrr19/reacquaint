@@ -63,6 +63,9 @@ class OpenaiService
       ]
     })
     @result = chatgpt_response["choices"][0]["message"]["content"]
+    renderer = Redcarpet::Render::HTML.new
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+    markdown.render(@result)
   end
 
   def rewrite
@@ -87,5 +90,8 @@ class OpenaiService
       ]
     })
     @result = chatgpt_response["choices"][0]["message"]["content"]
+    renderer = Redcarpet::Render::HTML.new
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+    markdown.render(@result)
   end
 end
