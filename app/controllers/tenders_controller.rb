@@ -18,6 +18,7 @@ class TendersController < ApplicationController
   end
 
   def create
+    @prerequisites = Prerequisite.all
     @tender = Tender.new(tender_params)
     @tender.user = current_user
     authorize @tender

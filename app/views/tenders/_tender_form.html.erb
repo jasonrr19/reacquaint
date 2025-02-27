@@ -2,11 +2,22 @@
   <%= f.input :title, label: 'Project Name' %>
   <%= f.input :synopsis, label: 'Synopsis' %>
   <h4 class="text-center my-4 fw-semibold">Select Categories</h4>
-  <%= f.simple_fields_for :selected_prerequisites do |r| %>
-    <%= r.association :prerequisite %>
-  <% end %>
-  <%= f.simple_fields_for :selected_prerequisites do |r| %>
-    <%= r.association :prerequisite %>
-  <% end %>
-  <%= f.submit class: 'btn btn-primary mt-3' %>
+  <fieldset class="form-group check_boxes optional snippet_tags">
+    <div class="d-flex justify-content-between">
+      <% @prerequisites.each_with_index do |prerequisite, index| %>
+        <div class="tag-item">
+          <input class="form-check-input check_boxes optional tag-selector"
+                 type="checkbox"
+                 value="<%= prerequisite.id %>"
+                 name="tender[selected_prerequisites_attributes][<%= index %>][prerequisite_id]"
+                 id="tender_selected_prerequisites_attributes_<%= prerequisite.id %>">
+          <label class="form-check-label collection_check_boxes"
+                 for="tender_selected_prerequisites_attributes_<%= prerequisite.id %>">
+            <%= prerequisite.name %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  </fieldset>
+  <%= f.submit 'Submit', class: 'btn btn-primary mt-3' %>
 <% end %>
