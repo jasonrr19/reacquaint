@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-5 vh-100">
       <%= simple_form_for(@selected_prerequisite) do |f| %>
-        <%= f.input :description %>
+        <%= f.rich_text_area :description %>
         <%= f.input :approved %>
         <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
       <% end %></div>
@@ -16,7 +16,7 @@
             <h3>Analysis of Description</h3>
           </div>
           <div>
-            <%= @selected_prerequisite.analysis.html_safe %>
+            <%= @selected_prerequisite.analysis %>
           </div>
         </div>
         <div class="col p-3">
@@ -24,7 +24,7 @@
             <h3>Suggested Rewrite</h3>
           </div>
           <div>
-            <%= @selected_prerequisite.suggested_rewrite.html_safe %>
+            <%= @selected_prerequisite.suggested_rewrite %>
           </div>
         </div>
       </div>

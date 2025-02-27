@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_27_025330) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_27_032000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,7 +53,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_025330) do
   end
 
   create_table "compatible_responses", force: :cascade do |t|
-    t.text "notes"
     t.boolean "approved", default: false
     t.float "score"
     t.bigint "submission_id", null: false
@@ -71,14 +70,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_025330) do
   end
 
   create_table "selected_prerequisites", force: :cascade do |t|
-    t.text "description"
     t.boolean "approved", default: false
     t.bigint "tender_id", null: false
     t.bigint "prerequisite_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "analysis"
-    t.text "suggested_rewrite"
     t.index ["prerequisite_id"], name: "index_selected_prerequisites_on_prerequisite_id"
     t.index ["tender_id"], name: "index_selected_prerequisites_on_tender_id"
   end
