@@ -1,19 +1,18 @@
   <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
-    <i class="fa-solid fa-arrow-left"></i>
-  <% end %>
-<h1>Welcome to Submissions#index</h1>
+  <i class="fa-solid fa-arrow-left"></i>
+<% end %>
 <div class="container">
-  <div>
-    <div>Project Name: <%= @tender.title %></div>
-    <div>Project Synopsis: <%= @tender.synopsis %></div>
+  <div class="text-center">
+    <h2 class="mt-3">Project Name: <%= @tender.title %></h2>
+    <p class="pt-3">Project Synopsis: <%= @tender.synopsis %></p>
+    <h4>Submissions:</h4>
   </div>
-  <p>Submissions:</p>
-  <div>
-    <% @submissions.each do |submission| %>
-      <p>Company Name: <%= submission.user.company_name %></p>
+  <% @submissions.each do |submission| %>
+    <div class="text-center">
+      <h5 class="py-2 text-center">Company Name: <%= submission.user.company_name %></h5>
       <% submission.compatible_responses.each do |response| %>
-        <p><%= response.selected_prerequisite.prerequisite.name %> <%= response.score %></p>
+        <p class="text-center mb-0"><%= response.selected_prerequisite.prerequisite.name %> <%= response.score %></p>
       <% end  %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>
