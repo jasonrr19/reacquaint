@@ -12,6 +12,7 @@ class TendersController < ApplicationController
   end
 
   def new
+    @prerequisitesicons = ["fa-solid fa-helmet-safety", "fa-solid fa-money-bill-trend-up", "fa-solid fa-star", "fa-solid fa-medal", "fa-solid fa-seedling"]
     @prerequisites = Prerequisite.all
     @tender = Tender.new(params[:tender_params])
     @tender.selected_prerequisites.build # needed for nested form
