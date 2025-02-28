@@ -36,6 +36,14 @@ owner = User.new(
 )
 owner.save!
 
+owner = User.new(
+  company_name: "J Unlimited",
+  email: "Junlimited@gmail.com",
+  address: "1645 Hacienda Street, Las Vegas, Nevada",
+  owner: true,
+  password: "123123"
+)
+
 puts "creating bidder user..."
 bidder = User.new(
   company_name: "Bidder Limited",
