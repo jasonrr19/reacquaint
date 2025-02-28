@@ -3,29 +3,28 @@
 <% end %>
 <div class="container">
   <div class="row">
-    <div class="col-5 vh-100">
+    <div class="col">
       <%= simple_form_for(@selected_prerequisite) do |f| %>
         <%= f.rich_text_area :description %>
         <%= f.input :approved %>
         <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
-      <% end %></div>
-    <div class="col-7">
-      <div class="row d-flex flex-column">
-        <div class="col p-3">
-          <div>
-            <h3>Analysis of Description</h3>
-          </div>
-          <div>
-            <%= @selected_prerequisite.analysis %>
-          </div>
+      <% end %>
+    </div>
+    <div class="row d-flex">
+      <div class="col-6 p-3">
+        <div>
+          <%= link_to "Analyse", analyse_selected_prerequisite_path(@selected_prerequisite), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
         </div>
-        <div class="col p-3">
-          <div>
-            <h3>Suggested Rewrite</h3>
-          </div>
-          <div>
-            <%= @selected_prerequisite.suggested_rewrite %>
-          </div>
+        <div class="card card-body">
+          <%= @selected_prerequisite.analysis %>
+        </div>
+      </div>
+      <div class="col-6 p-3">
+        <div>
+          <%= link_to "Rewrite", rewrite_selected_prerequisite_path(@selected_prerequisite), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
+        </div>
+        <div class="card card-body">
+          <%= @selected_prerequisite.suggested_rewrite %>
         </div>
       </div>
     </div>

@@ -11,7 +11,12 @@ Rails.application.routes.draw do
 
   resources :compatible_responses, only: [:edit, :update]
 
-  resources :selected_prerequisites, only: [:edit, :update]
+  resources :selected_prerequisites, only: [:edit, :update] do
+    member do
+      patch :rewrite
+      patch :analyse
+    end
+  end
 
   namespace :owner do
     resources :tenders, only: [:index]
