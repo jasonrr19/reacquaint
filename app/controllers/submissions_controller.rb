@@ -6,7 +6,10 @@ class SubmissionsController < ApplicationController
   end
 
   def show
+  end
 
+  def new
+    # chris
   end
 
   def update
