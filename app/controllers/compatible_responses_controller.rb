@@ -1,15 +1,23 @@
 class CompatibleResponsesController < ApplicationController
   def edit
-    # @tender = Submission.tender.find(params[:tender_id)
-    # @submission = Submission.find(params[:id])
-    #why did it change from top to bottom?
     @compatible_response = CompatibleResponse.find(params[:id])
-    @selected_prerequisites = @compatible_response.selected_prerequisite
-    @submission = @compatible_response.submission
-    @user = @submission.user
     authorize @compatible_response
+    @compatible_response.save
   end
 
   def update
+    @compatible_response = CompatibleResponse.find(params[:id])
+    authorize @compatible_response
+    if @compatible_response.update(compatible_response_params)
+      redirect_to submission_path(@compatible_response.submission), notice: "updated!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def compatible_response_params
+    params.require(:compatible_response).permit(:notes, :approved)
   end
 end
