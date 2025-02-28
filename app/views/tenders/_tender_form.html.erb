@@ -13,7 +13,8 @@
                  id="tender_selected_prerequisites_attributes_<%= prerequisite.id %>">
           <label class="form-check-label collection_check_boxes"
                  for="tender_selected_prerequisites_attributes_<%= prerequisite.id %>">
-            <%= prerequisite.name %>
+            <i class="<%= @prerequisitesicons[index] %>"></i>
+            <p class="mt-2"><%= prerequisite.name %></p>
           </label>
         </div>
       <% end %>
