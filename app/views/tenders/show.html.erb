@@ -11,7 +11,13 @@
   <%= render "published" %>
   <div class="d-flex justify-content-around mb-3">
     <div>
-      <%= link_to "Compatibility", @tender, class: 'btn btn-success' %>
+      <% if @tender.users.include?(current_user) %>
+        <%= link_to "Compatibility Report", submission_path(current_user.submissions.find_by(tender: @tender)) %>
+      <% else %>
+        <%= simple_form_for [@tender, @submission] do |f| %>
+          <%= f.submit 'Compatibility', class: 'btn btn-success mt-2' %>
+        <% end %>
+      <% end %>
     </div>
     <div>
       <%= link_to "Query API", @tender,  class: 'btn btn-outline-primary' %>

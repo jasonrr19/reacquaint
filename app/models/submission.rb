@@ -8,4 +8,11 @@ class Submission < ApplicationRecord
   validates :shortlisted, exclusion: [nil]
   validates :tender, uniqueness: { scope: :user }
   has_many_attached :documents
+  after_create_commit :create_compatible_responses
+
+  def create_compatible_responses
+    tender.selected_prerequisites.each do |selected_prerequisite|
+      CompatibleResponse.create(submission: self, selected_prerequisite: selected_prerequisite)
+    end
+  end
 end

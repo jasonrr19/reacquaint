@@ -17,7 +17,11 @@ class SubmissionPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    user == record.user || record.published? && record.tender.user == user
+  end
+
+  def create?
+    !user.owner
   end
 
 end
