@@ -7,9 +7,10 @@
     <p class="pt-3"><%= @submission.tender.synopsis %></p>
   </div>
   <% @submission.compatible_responses.each do |compatible_response| %>
-    <div class="">
+    <div class="text-center">
       <h5 class="py-2 text-center">Requirement Category: <%= compatible_response.selected_prerequisite.prerequisite.name %></h5>
       <p class="text-center mb-0">Contractor Satisfaction:   </p>
+      <%= link_to "edit", edit_compatible_response_path(compatible_response), class: 'btn btn-outline-warning' %>
     </div>
   <% end %>
 </div>
