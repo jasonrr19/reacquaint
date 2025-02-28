@@ -1,0 +1,92 @@
+=> 
+[[32m#<Submission:0x00007f2be4b0cd10[0m
+  id: [34m[1m51[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m132[0m,
+  tender_id: [34m[1m103[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.057140000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.057140000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0cbd0[0m
+  id: [34m[1m52[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m138[0m,
+  tender_id: [34m[1m113[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.096343000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.096343000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0ca90[0m
+  id: [34m[1m53[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m139[0m,
+  tender_id: [34m[1m107[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.133769000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.133769000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c950[0m
+  id: [34m[1m54[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m140[0m,
+  tender_id: [34m[1m104[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.167174000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.167174000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c810[0m
+  id: [34m[1m55[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m141[0m,
+  tender_id: [34m[1m109[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.207553000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.207553000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c6d0[0m
+  id: [34m[1m56[0m,
+  published: [36m[1mtrue[0m,
+  shortlisted: [36m[1mtrue[0m,
+  user_id: [34m[1m142[0m,
+  tender_id: [34m[1m111[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.239786000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.239786000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c590[0m
+  id: [34m[1m57[0m,
+  published: [36m[1mfalse[0m,
+  shortlisted: [36m[1mfalse[0m,
+  user_id: [34m[1m132[0m,
+  tender_id: [34m[1m110[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.282877000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.282877000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c450[0m
+  id: [34m[1m58[0m,
+  published: [36m[1mfalse[0m,
+  shortlisted: [36m[1mfalse[0m,
+  user_id: [34m[1m138[0m,
+  tender_id: [34m[1m106[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.316044000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.316044000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c310[0m
+  id: [34m[1m59[0m,
+  published: [36m[1mfalse[0m,
+  shortlisted: [36m[1mfalse[0m,
+  user_id: [34m[1m139[0m,
+  tender_id: [34m[1m112[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.350992000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.350992000 UTC +00:00[32m>[0m,
+ [32m#<Submission:0x00007f2be4b0c1d0[0m
+  id: [34m[1m60[0m,
+  published: [36m[1mfalse[0m,
+  shortlisted: [36m[1mfalse[0m,
+  user_id: [34m[1m140[0m,
+  tender_id: [34m[1m105[0m,
+  created_at: Wed, 26 Feb 2025 03:29:02.385900000 UTC +00:00,
+  updated_at:
+   Wed, 26 Feb 2025 03:29:02.385900000 UTC +00:00[32m>[0m,
+ [31m[1m"[0m[31m...[0m[31m[1m"[0m]
