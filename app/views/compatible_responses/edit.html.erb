@@ -1,2 +1,16 @@
 <h1>CompatibleResponses#edit</h1>
 <p>Find me in app/views/compatible_responses/edit.html.erb</p>
+ <%# tender.selected_prerequisites.each do |prereq|
+    compatible_response = CompatibleResponse.new(
+      selected_prerequisite: prereq,
+      submission: submission,
+      notes: Faker::Fantasy::Tolkien.poem,
+      score: rand(1..100)
+    )
+    compatible_response.save! %>
+
+  <%= simple_form_for(@compatible_response) do |f| %>
+    <%= f.rich_text_area :notes %>
+    <%= f.input :approved %>
+    <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
+  <% end %>
