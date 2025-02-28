@@ -1,5 +1,15 @@
-<h1>Submissions#show</h1>
-<% @submission.compatible_responses.each do |compatible_response| %>
-  <p>Requirement Category: <%= compatible_response.selected_prerequisite.prerequisite.name %></p>
-  <p>Contractor Satisfaction:   </p>
+<%= link_to bidder_submissions_path, class: "btn btn-primary m-3" do %>
+  <i class="fa-solid fa-arrow-left"></i>
 <% end %>
+<div class="container">
+  <div class="text-center">
+    <h2 class="mt-3"><%= @submission.tender.title %></h2>
+    <p class="pt-3"><%= @submission.tender.synopsis %></p>
+  </div>
+  <% @submission.compatible_responses.each do |compatible_response| %>
+    <div class="">
+      <h5 class="py-2 text-center">Requirement Category: <%= compatible_response.selected_prerequisite.prerequisite.name %></h5>
+      <p class="text-center mb-0">Contractor Satisfaction:   </p>
+    </div>
+  <% end %>
+</div>
