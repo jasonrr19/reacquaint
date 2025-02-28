@@ -1,1 +1,5 @@
 <h1>Submissions#show</h1>
+<% @submission.compatible_responses.each do |compatible_response| %>
+  <p>Requirement Category: <%= compatible_response.selected_prerequisite.prerequisite.name %></p>
+  <p>Contractor Satisfaction: <%= compatible_response.selected_prerequisite.description.body.to_plain_text %></p>
+<% end %>
