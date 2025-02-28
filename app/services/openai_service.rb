@@ -105,7 +105,7 @@ class OpenaiService
     chatgpt_response = @client.chat(parameters: {
       model: "gpt-4o-mini",
       messages: [
-        { role: "user", content: persona},
+        { role: "user", content: owner_persona},
         { role: "user", content: instructions}
       ]
     })
