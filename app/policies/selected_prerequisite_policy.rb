@@ -20,5 +20,12 @@ class SelectedPrerequisitePolicy < ApplicationPolicy
     return record.tender.user == user
   end
 
+  def analyse?
+    return record.tender.user == user
+  end
+
+  def rewrite?
+    return record.tender.user == user
+  end
 
 end

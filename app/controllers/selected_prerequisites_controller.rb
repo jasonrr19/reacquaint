@@ -1,14 +1,8 @@
 class SelectedPrerequisitesController < ApplicationController
-  before_action :selected_prerequisite, only: %i[edit update]
+  before_action :selected_prerequisite, only: %i[edit update rewrite analyse]
 
   def edit
     authorize @selected_prerequisite
-    if @selected_prerequisite.description.present? && @selected_prerequisite.analysis.nil?
-      openai_service = OpenaiService.new(@selected_prerequisite)
-      @selected_prerequisite.analysis = openai_service.analyse
-      @selected_prerequisite.suggested_rewrite = openai_service.rewrite
-      @selected_prerequisite.save
-    end
   end
 
   def update
@@ -18,6 +12,22 @@ class SelectedPrerequisitesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def analyse
+    authorize @selected_prerequisite
+    openai_service = OpenaiService.new(@selected_prerequisite)
+    @selected_prerequisite.analysis = openai_service.analyse
+    @selected_prerequisite.save
+    redirect_to edit_selected_prerequisite_path(@selected_prerequisite)
+  end
+
+  def rewrite
+    authorize @selected_prerequisite
+    openai_service = OpenaiService.new(@selected_prerequisite)
+    @selected_prerequisite.suggested_rewrite = openai_service.rewrite
+    @selected_prerequisite.save
+    redirect_to edit_selected_prerequisite_path(@selected_prerequisite)
   end
 
   private
