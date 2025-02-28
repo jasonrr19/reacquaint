@@ -4,21 +4,23 @@
 <div class="container">
   <h2>My submissions:</h2>
   <div class="d-flex">
-    <div class="cards  my-3" >
+    <div class="cards  my-3">
       <% @submissions.each do |submission| %>
-        <div class="card-pick p-3">
-          <div class="d-flex justify-content-between">
-            <div class="card-title">
-              <h5><%= submission.tender.title %></h5>
+        <%= link_to submission_path(submission), class: 'text-decoration-none text-black' do %>
+          <div class="card-pick p-3">
+            <div class="d-flex justify-content-between">
+              <div class="card-title">
+                <h5><%= submission.tender.title %></h5>
+              </div>
+              <p class="badge rounded-pill text-bg-success fw-medium">Submitted</p>
             </div>
-            <p class="badge rounded-pill text-bg-success fw-medium">Submitted</p>
+            <div class="text-body-secondary">
+              <h6 class="px-2"><%= submission.tender.synopsis %></h6>
+            </div>
+            <div class="card-text">
+            </div>
           </div>
-          <div class="text-body-secondary">
-            <h6 class="px-2"><%= submission.tender.synopsis %></h6>
-          </div>
-          <div class="card-text">
-          </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
