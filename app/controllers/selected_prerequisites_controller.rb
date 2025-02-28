@@ -16,7 +16,7 @@ class SelectedPrerequisitesController < ApplicationController
 
   def analyse
     authorize @selected_prerequisite
-    openai_service = OpenaiService.new(@selected_prerequisite)
+    openai_service = OpenaiService.new(selected_prerequisite: @selected_prerequisite)
     @selected_prerequisite.analysis = openai_service.analyse
     @selected_prerequisite.save
     redirect_to edit_selected_prerequisite_path(@selected_prerequisite)
@@ -24,7 +24,7 @@ class SelectedPrerequisitesController < ApplicationController
 
   def rewrite
     authorize @selected_prerequisite
-    openai_service = OpenaiService.new(@selected_prerequisite)
+    openai_service = OpenaiService.new(selected_prerequisite: @selected_prerequisite)
     @selected_prerequisite.suggested_rewrite = openai_service.rewrite
     @selected_prerequisite.save
     redirect_to edit_selected_prerequisite_path(@selected_prerequisite)

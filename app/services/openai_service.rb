@@ -1,10 +1,11 @@
 class OpenaiService
-  def initialize(selected_prerequisite)
-    @selected_prerequisite = selected_prerequisite
+  def initialize(attrs = {})
+    @selected_prerequisite = attrs[:selected_prerequisite]
+    @compatible_response = attrs[:compatible_response]
     @client = OpenAI::Client.new
   end
 
-  def persona
+  def owner_persona
     <<~PERSONA
     You are a Tender Analysis & Writing Expert for Building and Construction.
 
@@ -20,6 +21,25 @@ class OpenaiService
 
       You work methodically, using structured frameworks such as risk assessments, scoring matrices, and compliance checklists.
       Your recommendations balance legal precision, commercial viability, and practical execution to ensure tenders are robust, fair, and effective.
+    PERSONA
+  end
+
+  def bidder_persona
+    <<~PERSONA
+    You are an expert in crafting compelling, compliant, and strategically optimized bid responses for construction, civil engineering, and infrastructure tenders.
+    Your expertise lies in translating technical requirements into persuasive proposals that align with evaluation criteria, maximize scoring potential,
+    and differentiate your bid from competitors.
+
+    Your Key Skills & Approach:
+	  •	 Bid Strategy & Win Themes: You develop tailored bid strategies that highlight competitive strengths, unique value propositions, and alignment with client priorities.
+	  •	 Compliance & Evaluation Alignment: You meticulously ensure bid responses meet all contractual, technical, and regulatory requirements (e.g., FIDIC, NEC, JCT).
+	  •	 Persuasive & Clear Writing: You craft clear, concise, and engaging responses that effectively communicate capability, experience, and project approach.
+	  •	 Technical & Commercial Integration: You collaborate with technical and commercial teams to produce well-balanced bids that are both technically sound and commercially competitive.
+	  • Risk & Gap Analysis: You assess tender documents to identify risks, ambiguities, and compliance challenges, ensuring mitigation strategies are embedded in the bid.
+	  •	Bid Review & Scoring Optimization: You refine submissions to enhance readability, clarity, and alignment with scoring methodologies.
+
+    You work systematically, leveraging bid frameworks, compliance checklists, and evaluation matrices to ensure every response is compelling, precise, and aligned with the client’s objectives.
+    Your approach balances persuasive writing with technical accuracy, ensuring that bids are not only compliant but also stand out as winning proposals.
     PERSONA
   end
 
@@ -58,7 +78,7 @@ class OpenaiService
     chatgpt_response = @client.chat(parameters: {
       model: "gpt-4o-mini",
       messages: [
-        { role: "user", content: persona},
+        { role: "user", content: owner_persona},
         { role: "user", content: instructions}
       ]
     })
@@ -86,6 +106,63 @@ class OpenaiService
       model: "gpt-4o-mini",
       messages: [
         { role: "user", content: persona},
+        { role: "user", content: instructions}
+      ]
+    })
+    @result = chatgpt_response["choices"][0]["message"]["content"]
+    renderer = Redcarpet::Render::HTML.new
+    markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+    markdown.render(@result)
+  end
+
+  def write
+    instructions = <<~INSTRUCTIONS
+    You are reviewing a tender document to assess its requirements and draft a strategically optimized bid response.
+    Your goal is to ensure that the response is compliant, compelling, and aligned with evaluation criteria, maximizing its scoring potential.
+
+    Analysis & Response Writing Steps:
+
+    1. Requirement Analysis (do not return this but use it in drafting the bid response)
+      •	Compare the requirement description with:
+      •	The project synopsis (to ensure alignment with the overall project).
+      •	The requirement title objectives (to highlight how the bid meets the title's goals).
+      •	Identify ambiguities, missing details, or areas where clarification is needed.
+      •	Assess the requirement against industry standards (e.g., FIDIC, NEC, JCT) and best practices.
+
+    2. Bid Strategy & Optimization (do not return this but use it in drafting the bid response)
+      •	Identify key win themes that differentiate the bid (e.g., innovation, sustainability, risk mitigation, cost-effectiveness).
+      •	Ensure the response effectively addresses technical, commercial, and compliance aspects.
+      •	Structure the bid to enhance clarity, readability, and persuasive impact.
+
+    3. Drafting the Bid Response (Max. 250 Words)
+      •	Use a structured format with bullet points and subheadings.
+      •	Clearly articulate:
+        •	Understanding of the requirement (demonstrating insight into project goals).
+        •	Approach & Methodology (how the bidder will deliver the requirement efficiently).
+        •	Experience & Capabilities (evidence of past success, qualifications, and technical expertise).
+        •	Value Proposition (how the bid offers the best solution in terms of quality, cost, and risk management).
+        •	Ensure concise, professional, and persuasive writing.
+
+    Your recommendations should balance strategic persuasion and technical accuracy, ensuring the bid is compliant, competitive,
+    and compelling while addressing all requirements effectively.
+
+    The requirement description is:
+
+    #{@selected_prerequisite.description}
+
+    The requirement title is:
+
+    #{@selected_prerequisite.prerequisite.name}
+
+    The project synopsis is:
+
+    #{@selected_prerequisite.tender.synopsis}
+    INSTRUCTIONS
+
+    chatgpt_response = @client.chat(parameters: {
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "user", content: bidder_persona},
         { role: "user", content: instructions}
       ]
     })

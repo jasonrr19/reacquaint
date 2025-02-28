@@ -4,6 +4,5 @@ class CompatibleResponse < ApplicationRecord
   # validates :notes, presence: true, length: { minimum: 50, maximum: 600 }
   # validates :score, presence: true
   has_rich_text :notes
-  has_rich_text :analysis
-  has_rich_text :suggested_rewrite
+  has_rich_text :draft
 end

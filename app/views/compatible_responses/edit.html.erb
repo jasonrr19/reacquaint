@@ -1,6 +1,6 @@
 <h1>CompatibleResponses#edit</h1>
 <p>Find me in app/views/compatible_responses/edit.html.erb</p>
- <%# tender.selected_prerequisites.each do |prereq|
+<%# tender.selected_prerequisites.each do |prereq|
     compatible_response = CompatibleResponse.new(
       selected_prerequisite: prereq,
       submission: submission,
@@ -8,9 +8,14 @@
       score: rand(1..100)
     )
     compatible_response.save! %>
-
-  <%= simple_form_for(@compatible_response) do |f| %>
-    <%= f.rich_text_area :notes %>
-    <%= f.input :approved %>
-    <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
-  <% end %>
+<%= simple_form_for(@compatible_response) do |f| %>
+  <%= f.rich_text_area :notes %>
+  <%= f.input :approved %>
+  <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
+<% end %>
+<div>
+  <%= link_to "Write", write_compatible_response_path(@compatible_response), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
+</div>
+<div class="card card-body">
+  <%= @compatible_response.draft %>
+</div>

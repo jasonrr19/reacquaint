@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_27_032000) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_28_054314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_27_032000) do
     t.bigint "selected_prerequisite_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "draft"
     t.index ["selected_prerequisite_id"], name: "index_compatible_responses_on_selected_prerequisite_id"
     t.index ["submission_id"], name: "index_compatible_responses_on_submission_id"
   end

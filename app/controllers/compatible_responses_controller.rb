@@ -15,6 +15,15 @@ class CompatibleResponsesController < ApplicationController
     end
   end
 
+  def write
+    @compatible_response = CompatibleResponse.find(params[:id])
+    authorize @compatible_response
+    openai_service = OpenaiService.new(selected_prerequisite: @compatible_response.selected_prerequisite, compatible_response: @compatible_response)
+    @compatible_response.draft = openai_service.write
+    @compatible_response.save
+    redirect_to edit_compatible_response_path(@compatible_response)
+  end
+
   private
 
   def compatible_response_params

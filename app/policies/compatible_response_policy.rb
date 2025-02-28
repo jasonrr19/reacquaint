@@ -20,4 +20,8 @@ class CompatibleResponsePolicy < ApplicationPolicy
     return record.submission.user == user
   end
 
+  def write?
+    return record.submission.user == user
+  end
+
 end

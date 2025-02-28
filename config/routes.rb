@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   resources :submissions, only: [:show, :update]
 
-  resources :compatible_responses, only: [:edit, :update]
+  resources :compatible_responses, only: [:edit, :update] do
+    member do
+      patch :write
+    end
+  end
 
   resources :selected_prerequisites, only: [:edit, :update] do
     member do
