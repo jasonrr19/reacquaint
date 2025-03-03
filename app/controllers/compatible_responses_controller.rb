@@ -9,6 +9,10 @@ class CompatibleResponsesController < ApplicationController
     @compatible_response = CompatibleResponse.find(params[:id])
     authorize @compatible_response
     if @compatible_response.update(compatible_response_params)
+      openai_service = OpenaiService.new(selected_prerequisite: @compatible_response.selected_prerequisite, compatible_response: @compatible_response)
+      @compatible_response.score = openai_service.score
+      # @compatible_response.score = 85
+      @compatible_response.save
       redirect_to submission_path(@compatible_response.submission), notice: "updated!"
     else
       render :edit, status: :unprocessable_entity
@@ -20,6 +24,7 @@ class CompatibleResponsesController < ApplicationController
     authorize @compatible_response
     openai_service = OpenaiService.new(selected_prerequisite: @compatible_response.selected_prerequisite, compatible_response: @compatible_response)
     @compatible_response.notes = openai_service.write
+    @compatible_response.score = openai_service.score
     @compatible_response.save
 
     respond_to do |format|

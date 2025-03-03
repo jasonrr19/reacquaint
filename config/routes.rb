@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :compatible_responses, only: [:edit, :update] do
     member do
       patch :write
+      patch :score
     end
   end
 
