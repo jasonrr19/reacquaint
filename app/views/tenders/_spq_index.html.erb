@@ -1,0 +1,13 @@
+<div class="d-flex flex-column justify-content-between h-100">
+  <div>
+    <% tender.selected_prerequisites.each do |prerequisite| %>
+      <ul>
+        <li> <%= link_to prerequisite.prerequisite.name, edit_selected_prerequisite_path(prerequisite)  %> </li>
+      </ul>
+    <% end  %>
+  </div>
+  <div>
+    <button class="btn btn-secondary mb-1 w-100">Save Draft</button>
+    <button class="btn btn-primary mb-1 w-100">Publish</button>
+  </div>
+</div>
