@@ -11,34 +11,22 @@
   </div>
 </div>
 <div class="container">
-  <%= render 'bidder/submissions/submission_tab' %>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
-      <div class="cards">
-        <% @submissions.where(published: false).reverse.each do |submission|%>
-          <div class="card-pick">
-            <%= render 'bidder/submissions/submission', submission: submission %>
-          </div>
-        <% end %>
+  <% if @submissions.any? %>
+    <%= render 'bidder/submissions/submission_tab' %>
+    <div class="tab-content" id="myTabContent">
+      <%= render 'bidder/submissions/draft' %>
+      <%= render 'bidder/submissions/submitted' %>
+      <div class="tab-pane fade py-3" id="shortlistes-tab-pane" role="tabpanel" aria-labelledby="shortlisted-tab" tabindex="0">
+        <div class="cards">
+          <% @submissions.where(shortlisted: true).reverse.each do |submission| %>
+            <div class="card-pick">
+              <%= render "bidder/submissions/submission", submission: submission %>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="tab-pane fade py-3" id="published-tab-pane" role="tabpanel" aria-labelledby="published-tab" tabindex="0">
-    <div class="cards">
-      <% @submissions.where(published: true).reverse.each do |submission| %>
-        <div class="card-pick">
-          <%= render "bidder/submissions/submission", submission: submission %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-  <div class="tab-pane fade py-3" id="shortlistes-tab-pane" role="tabpanel" aria-labelledby="shortlisted-tab" tabindex="0">
-    <div class="cards">
-      <% @submissions.where(shortlisted: true).reverse.each do |submission| %>
-        <div class="card-pick">
-          <%= render "bidder/submissions/submission", submission: submission %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <% else %>
+    <h4 class="pt-3">No matching results</h4>
+  <% end %>
 </div>
