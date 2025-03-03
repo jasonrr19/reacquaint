@@ -1,6 +1,6 @@
 <div class="container">
   <%# Progress Bar %>
-  <div class="progress rounded-pill mb-3" style="padding-top:5px; padding-bottom:5px; background-color:rgb(228, 231, 233); height: 24px">
+  <div class="progress rounded-pill mb-3" style="padding:5px; background-color:rgb(228, 231, 233); height: 24px">
     <div class="progress-bar bg-primary rounded-pill"
             role="progressbar"
             style="width: 30%;"
@@ -11,7 +11,7 @@
   <%# Title and Back Button%>
   <div class="row">
     <div class="col-12 border border-dark d-flex align-items-center text-start">
-      <p class="display-4"><%= @tender.title %></p>
+      <p class="mb-0 display-4"><%= @tender.title %></p>
     </div>
   </div>
   <%# Selected Prereq Index Sidebar and Edit Frame%>
@@ -21,8 +21,9 @@
       <%= render "spq_index", tender: @tender %>
     </div>
     <%# Selected Prereq Edit Frame%>
-    <div class="col-8 vh-100 border border-dark">
+    <div class="col-8 vh-100 border border-dark overflow-scroll">
       <%= turbo_frame_tag :edit_prereq do %>
+        <p> <%= @tender.synopsis %></p>
       <% end %>
     </div>
   </div>
