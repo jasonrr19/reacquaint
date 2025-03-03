@@ -15,4 +15,13 @@ class Submission < ApplicationRecord
       CompatibleResponse.create(submission: self, selected_prerequisite: selected_prerequisite)
     end
   end
+
+  include PgSearch::Model
+  pg_search_scope :search_by_title_and_synopsis,
+    associated_against: {
+      tender: [ :title, :synopsis ]
+    },
+    using: {
+      tsearch: { prefix: true } # <-- now `superman batm` will return something!
+    }
 end
