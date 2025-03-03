@@ -171,4 +171,37 @@ class OpenaiService
     markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
     markdown.render(@result)
   end
+
+  def score
+    instructions = <<~INSTRUCTIONS
+    You are reviewing a bidder's responses to requirements(selected prerequisites)
+    and their descriptions on a project
+    based on the following rubrics. Match the name on the rubric to the requirement title to which the
+    response is made for the
+    selected prerequisite and generate a numeric score ranging from 1 -100 based on how closely the response succeeds
+    in satisfiying the conditions. Now take each score and generate an overall score that is
+    the average of all scores.
+    Please do not return any text, only an integer score between 1 - 100.
+
+      The requirement description is:
+
+    #{@selected_prerequisite.description}
+
+    The requirement title is:
+
+    #{@selected_prerequisite.prerequisite.name}r
+    INSTRUCTIONS
+
+    chatgpt_response = @client.chat(parameters: {
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "user", content: bidder_persona},
+        { role: "user", content: instructions}
+      ]
+    })
+    @result = chatgpt_response["choices"][0]["message"]["content"]
+  end
+
+  def new_rewrite
+  end
 end

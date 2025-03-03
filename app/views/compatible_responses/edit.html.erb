@@ -27,3 +27,13 @@
 <%#
 <div>if notes are blank then show spinner and build a div(w/id) that you will replace later. </div>
 stimulus controller  on connect make an Api request to get a response.  %>
+<div class = "row justify-content-center">
+<div class="col-4">
+        <div>
+          <%= link_to "score", score_compatible_response_path(@compatible_response), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
+        </div>
+        <div class="card card-body">
+          <%= @compatible_response.score %>
+        </div>
+      </div>
+    </div>
