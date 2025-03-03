@@ -9,20 +9,21 @@
     compatible_response.save! %>
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <%= simple_form_for(@compatible_response) do |f| %>
-        <%= f.rich_text_area :notes %>
-        <%= f.input :approved %>
-        <%= f.submit 'Submit', class: 'btn btn-success mt-2' %>
+    <div class="col-12">
+      <% if @compatible_response.notes.blank? %>
+        <!-- after the ai updates we replace this div. Don't change ID. -->
+        <div id="c-response-<%= @compatible_response.id %>">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+          <p><span data-controller="typed"></span></p>
+          <!-- hiding link to user but clicking automatically with Stimulus controller on connect. -->
+          <%= link_to "Write", write_compatible_response_path(@compatible_response), class: "btn btn-primary d-none", data: { turbo_method: :patch, controller: 'write-response'}, role: "button"   %>
+        </div>
+      <% else %>
+        <%= render 'compatible_responses/form', compatible_response: @compatible_response %>
       <% end %>
-    </div>
-    <div class="col-6">
-      <div>
-        <%= link_to "Write", write_compatible_response_path(@compatible_response), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
-      </div>
-      <div class="card card-body">
-        <%= @compatible_response.draft %>
-      </div>
     </div>
   </div>
 </div>
+<%#
+<div>if notes are blank then show spinner and build a div(w/id) that you will replace later. </div>
+stimulus controller  on connect make an Api request to get a response.  %>
