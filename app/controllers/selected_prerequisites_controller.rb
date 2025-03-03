@@ -8,7 +8,7 @@ class SelectedPrerequisitesController < ApplicationController
   def update
     authorize @selected_prerequisite
     if @selected_prerequisite.update(selected_prerequisite_params)
-      redirect_to tender_path(@selected_prerequisite.tender), notice: "updated!"
+      redirect_to tender_path(@selected_prerequisite.tender), notice: "Updated!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -19,7 +19,18 @@ class SelectedPrerequisitesController < ApplicationController
     openai_service = OpenaiService.new(selected_prerequisite: @selected_prerequisite)
     @selected_prerequisite.analysis = openai_service.analyse
     @selected_prerequisite.save
-    redirect_to edit_selected_prerequisite_path(@selected_prerequisite)
+
+    respond_to do |format|
+      format.html { redirect_to edit_selected_prerequisite_path(@selected_prerequisite) }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("s-prereq-#{@selected_prerequisite.id}",
+          partial: 'selected_prerequisites/analysis',
+          locals: {
+            selected_prerequisite: @selected_prerequisite,
+          }
+        )
+      end
+    end
   end
 
   def rewrite

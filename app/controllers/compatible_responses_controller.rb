@@ -30,7 +30,7 @@ class CompatibleResponsesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to edit_compatible_response_path(@compatible_response) }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("c-response-#{@compatible_response.id }",
+        render turbo_stream: turbo_stream.replace("c-response-#{@compatible_response.id}",
           partial: 'compatible_responses/form',
           locals: {
             compatible_response: @compatible_response,

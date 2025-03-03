@@ -1,40 +1,30 @@
-<% if @tender.published %>
-  <% if current_user.owner %>
-    <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
-      <i class="fa-solid fa-arrow-left"></i>
-    <% end %>
-  <% else %>
-    <%= link_to tenders_path, class: 'btn btn-primary m-3' do %>
-      <i class="fa-solid fa-arrow-left"></i>
-    <% end %>
-  <% end %>
-  <%= render "published" %>
-  <div class="d-flex justify-content-around mb-3">
-    <div>
-      <% if @tender.users.include?(current_user) %>
-        <%= link_to "Compatibility Report", submission_path(current_user.submissions.find_by(tender: @tender)) %>
-      <% else %>
-        <%= simple_form_for [@tender, @submission] do |f| %>
-          <%= f.submit 'Compatibility', class: 'btn btn-success mt-2' %>
-        <% end %>
+<div class="container">
+  <%# Progress Bar %>
+  <div class="progress rounded-pill mb-3" style="padding:5px; background-color:rgb(228, 231, 233); height: 24px">
+    <div class="progress-bar bg-primary rounded-pill"
+            role="progressbar"
+            style="width: 30%;"
+            aria-valuemin="0"
+            aria-valuemax="100">
+    </div>
+  </div>
+  <%# Title and Back Button%>
+  <div class="row">
+    <div class="col-12 border border-dark d-flex align-items-center text-start">
+      <p class="mb-0 display-4"><%= @tender.title %></p>
+    </div>
+  </div>
+  <%# Selected Prereq Index Sidebar and Edit Frame%>
+  <div class="row">
+    <%# Selected Prereq Index Sidebar%>
+    <div class="col-4 vh-75 border border-dark">
+      <%= render "spq_index", tender: @tender %>
+    </div>
+    <%# Selected Prereq Edit Frame%>
+    <div class="col-8 vh-100 border border-dark overflow-scroll">
+      <%= turbo_frame_tag :edit_prereq do %>
+        <p> <%= @tender.synopsis %></p>
       <% end %>
     </div>
-    <div>
-      <%= link_to "Query API", @tender,  class: 'btn btn-outline-primary' %>
-    </div>
-    <div>
-      <%= link_to "Download PDF", @tender,  class: 'btn btn-primary' %>
-    </div>
   </div>
-<% else %>
-  <%= link_to owner_tenders_path, class: 'btn btn-primary m-3' do %>
-    <i class="fa-solid fa-arrow-left"></i>
-  <% end %>
-  <%= render "published" %>
-  <div class="d-flex justify-content-around align-items-center">
-    <div>
-      <%= render 'form' %>
-    </div>
-    <div> <%= link_to "Save Draft", @tender, class: 'btn btn-secondary' %></div>
-  </div>
-<% end %>
+</div>
