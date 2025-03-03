@@ -1,22 +1,25 @@
 <div class="container">
+  <div class="my-3">
+    <%= form_with url: tenders_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "Type a keyword"
+        %>
+      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+    <% end %>
+  </div>
   <div class="cards my-3">
     <% @tenders.each do |tender| %>
       <div class="card-pick">
         <div class="d-flex mt-2 ms-2">
-          <% if tender.published == true %>
-            <div class="d-flex justify-content-between">
-              <p class="m-0 badge rounded-pill text-bg-success fw-medium">Published</p>
-            </div>
-          <% else %>
-            <p class="m-0 badge rounded-pill  text-bg-warning ">Unpublished</p>
-          <% end %>
         </div>
-        <div class="card-pick-info">
-          <%= link_to tender_path(tender), class: "text-decoration-none" do %>
-            <p><b>Project:</b></p>
-            <p class= "text-black", style= "text-decoration: none"><%= tender.title %></p>
-          <% end %>
-        </div>
+        <%= link_to tender_path(tender), class: "text-decoration-none h-100" do %>
+          <div class="card-pick-info">
+            <h6><b>Project:</b></h6>
+            <h5 class= "text-black", style= "text-decoration: none"><%= tender.title %></h5>
+          </div>
+        <% end %>
       </div>
     <% end %>
   </div>
