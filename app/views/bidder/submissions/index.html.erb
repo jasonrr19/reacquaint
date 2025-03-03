@@ -13,7 +13,7 @@
 <div class="container">
   <h2>Bidder submissions index page:</h2>
   <div class="d-flex">
-    <div class="cards  my-3">
+    <div class="cards my-3">
       <% @submissions.each do |submission| %>
         <%= link_to submission_path(submission), class: 'text-decoration-none text-black' do %>
           <div class="card-pick p-3">
