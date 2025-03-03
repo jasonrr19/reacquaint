@@ -1,18 +1,37 @@
 <div class="container">
-  <div class="cards my-3">
-    <% @tenders.each do |tender| %>
-      <div class="card-pick">
-        <div class="d-flex mt-2 ms-2">
-          <% if tender.published == true %>
-            <p class="m-0 btn btn-success rounded-pill">Published</p>
-          <% else %>
-            <p class="m-0 btn btn-warning rounded-pill">Unpublished</p>
-          <% end %>
-        </div>
-        <div class="card-pick-info">
-          <%= render "tenders/card", tender: tender  %>
-        </div>
+  <ul class="nav tabs-underlined" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined active" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft-tab-pane" role="tab" aria-controls="draft-tab-pane" aria-selected="true">Draft</span>
+    </li>
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined" id="published-tab" data-bs-toggle="tab" data-bs-target="#published-tab-pane" role="tab" aria-controls="published-tab-pane" aria-selected="false">Published</span>
+    </li>
+    <li class="nav-item" role="presentation">
+      <span class="nav-link tab-underlined" id="conversations-tab" data-bs-toggle="tab" data-bs-target="#conversations-tab-pane" role="tab" aria-controls="conversations-tab-pane" aria-selected="false">Closed</span>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
+      <div class="cards">
+        <% @tenders.where(published: false).each do |tender| %>
+          <div class="card-pick">
+            <%= render 'tenders/card', tender: tender%>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+    <div class="tab-pane fade py-3" id="published-tab-pane" role="tabpanel" aria-labelledby="published-tab" tabindex="0">
+      <div class="cards">
+        <% @tenders.where(published: true).each do |tender| %>
+          <div class="card-pick">
+            <%= render 'tenders/card', tender: tender %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="tab-pane fade py-3" id="conversations-tab-pane" role="tabpanel" aria-labelledby="conversations-tab" tabindex="0">
+      <div class="cards">
+      </div>
+    </div>
   </div>
 </div>

@@ -1,11 +1,12 @@
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
   <div class="">
-    <div class="text-black">
-      <p>Projects: <%= tender.title %></p>
+    <div class="text-black p-4">
+      <h5>Projects: <%= tender.title %></h5>
+      <h6><%= tender.synopsis %></h6>
     </div>
     <div class="" style="text-decoration: none;">
       <%= link_to 'Submissions', tender_submissions_path(tender),
-                                class: "text-black",
+                                class: "text-black p-4",
                                 style: "text-decoration: none;" %>
     </div>
   </div>
