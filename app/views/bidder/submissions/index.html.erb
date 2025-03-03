@@ -11,18 +11,7 @@
   </div>
 </div>
 <div class="container">
-  <h2>Bidder submissions index page:</h2>
-  <ul class="nav tabs-underlined" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <span class="nav-link tab-underlined active" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft-tab-pane" role="tab" aria-controls="draft-tab-pane" aria-selected="true">Draft</span>
-    </li>
-    <li class="nav-item" role="presentation">
-      <span class="nav-link tab-underlined" id="published-tab" data-bs-toggle="tab" data-bs-target="#published-tab-pane" role="tab" aria-controls="published-tab-pane" aria-selected="false">Submitted</span>
-    </li>
-    <li class="nav-item" role="presentation">
-      <span class="nav-link tab-underlined" id="shortlisted-tab" data-bs-toggle="tab" data-bs-target="#shortlisted-tab-pane" role="tab" aria-controls="shortlisted-tab-pane" aria-selected="false">Shortlisted</span>
-    </li>
-  </ul>
+  <%= render 'bidder/submissions/submission_tab' %>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
       <div class="cards">

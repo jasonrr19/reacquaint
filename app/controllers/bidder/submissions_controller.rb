@@ -2,7 +2,7 @@ class Bidder::SubmissionsController < ApplicationController
 
   def index
     @submissions = policy_scope([:bidder, Submission])
-    if params[:query]
+    if params[:query].present?
       @submissions = @submissions.search_by_title_and_synopsis(params[:query])
     end
   end
