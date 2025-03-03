@@ -1,0 +1,6 @@
+<%= link_to submission_path(submission), class: "text-decoration-none h-100" do %>
+  <div class="text-black p-4" >
+    <h5>Projects: <%= submission.tender.title %></h5>
+    <h6><%= submission.tender.synopsis %></h6>
+  </div>
+<% end %>
