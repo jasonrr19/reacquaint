@@ -2,6 +2,9 @@ class TendersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show ]
   def index
     @tenders = policy_scope(Tender)
+    if params[:query].present?
+      @tenders = @tenders.search_by_title_and_synopsis(params[:query])
+    end
   end
 
   def show
