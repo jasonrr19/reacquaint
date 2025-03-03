@@ -28,5 +28,11 @@
   // transform: translateY(-8px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   outline: 3px solid rgba(81, 23, 95, 0.294);
+}
 
+.vertical-center {
+  padding-top: 75px;
+  p {
+    text-decoration: none;
+  }
 }
