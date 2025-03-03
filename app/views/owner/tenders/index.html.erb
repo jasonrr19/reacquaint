@@ -13,7 +13,12 @@
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
       <div class="cards">
-        <% @tenders.where(published: false).each do |tender| %>
+        <%= link_to new_tender_path, class: 'text-decoration-none' do %>
+          <div class="card-pick bg-secondary-subtle">
+            <h5 class="text-center vertical-center fw-semibold">+ Create New Tender</h5>
+          </div>
+        <% end %>
+        <% @tenders.where(published: false).reverse.each do |tender| %>
           <div class="card-pick">
             <%= render 'tenders/card', tender: tender%>
           </div>
@@ -22,7 +27,7 @@
     </div>
     <div class="tab-pane fade py-3" id="published-tab-pane" role="tabpanel" aria-labelledby="published-tab" tabindex="0">
       <div class="cards">
-        <% @tenders.where(published: true).each do |tender| %>
+        <% @tenders.where(published: true).reverse.each do |tender| %>
           <div class="card-pick">
             <%= render 'tenders/card', tender: tender %>
           </div>
