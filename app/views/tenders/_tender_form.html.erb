@@ -1,7 +1,13 @@
 <%= simple_form_for @tender do |f| %>
-  <%= f.input :title, label: 'Project Name' %>
-  <%= f.input :synopsis, label: 'Synopsis' %>
-  <h4 class="text-center my-4 fw-semibold">Select Categories</h4>
+  <div class="form-floating pb-3">
+    <%= f.input_field :title, class: 'form-control tender_title', id: 'floatingInput tender_title' ,placeholder: 'Project Title' %>
+    <%= f.label :title, "Project Title" %>
+  </div>
+  <div class="form-floating">
+    <%= f.text_area :synopsis, as: :text, class: 'form-control tender_synopsis', id: 'floatingInput' ,placeholder: 'Project Title' %>
+    <%= f.label :synopsis,'Synopsis', class: 'pb-5"' %>
+  </div>
+  <h4 class="text-center mt-5 mb-4 fw-semibold">Select Categories</h4>
   <fieldset class="form-group check_boxes optional snippet_tags">
     <div class="d-flex justify-content-between">
       <% @prerequisites.each_with_index do |prerequisite, index| %>
@@ -14,11 +20,13 @@
           <label class="form-check-label collection_check_boxes"
                  for="tender_selected_prerequisites_attributes_<%= prerequisite.id %>">
             <i class="<%= @prerequisitesicons[index] %>"></i>
-            <p class="mt-2"><%= prerequisite.name %></p>
+            <p class="mt-2"><%= prerequisite.name.capitalize %></p>
           </label>
         </div>
       <% end %>
     </div>
   </fieldset>
-  <%= f.submit 'Submit', class: 'btn btn-primary mt-3' %>
+  <div >
+    <%= f.submit 'Next', class: 'btn btn-primary mt-5' %>
+  </div>
 <% end %>
