@@ -91,6 +91,9 @@ class OpenaiService
   def rewrite
     instructions = <<~INSTRUCTIONS
     Rewrite the inputted description based on the result of the analysis.
+    Rewrite to be as comprehensive as possible but do not exceed 1000 words.
+    Use formatting for headers, italics, bolding, and bullet points as appropriate.
+    Have spacing to improve readability.
 
     The inputted description is:
 

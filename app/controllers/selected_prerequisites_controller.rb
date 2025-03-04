@@ -47,9 +47,20 @@ class SelectedPrerequisitesController < ApplicationController
   def rewrite
     authorize @selected_prerequisite
     openai_service = OpenaiService.new(selected_prerequisite: @selected_prerequisite)
-    @selected_prerequisite.suggested_rewrite = openai_service.rewrite
+    @selected_prerequisite.description = openai_service.rewrite
     @selected_prerequisite.save
-    redirect_to edit_selected_prerequisite_path(@selected_prerequisite)
+
+    respond_to do |format|
+      format.html { redirect_to edit_selected_prerequisite_path(@selected_prerequisite) }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("edit-frame-#{@selected_prerequisite.id}",
+          partial: 'selected_prerequisites/edit_frame',
+          locals: {
+            selected_prerequisite: @selected_prerequisite,
+          }
+        )
+      end
+    end
   end
 
   private
