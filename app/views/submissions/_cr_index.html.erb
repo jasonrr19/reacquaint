@@ -1,0 +1,21 @@
+<div class="d-flex flex-column justify-content-between h-100" data-controller="active-button">
+  <div class="d-flex flex-column align-items-start">
+    <%= link_to "Project Synopsis", submission_path(submission), class: "active btn btn-outline-primary w-100 my-2",
+    data: { active_button_target: "link", action: "click->active-button#toggle" } %>
+    <% submission.compatible_responses.each do |c_response| %>
+      <% if policy(c_response).edit? %>
+        <%= link_to c_response.selected_prerequisite.prerequisite.name.titleize, edit_compatible_response_path(c_response),
+      class: "btn #{c_response.id == params[:id] ? 'btn-primary' : 'btn-outline-primary'} w-100 my-2",
+      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
+      <% else %>
+        <%= link_to c_response.selected_prerequisite.prerequisite.name.titleize, compatible_response_path(c_response),
+      class: "btn #{prerequisite.id == params[:id] ? 'btn-primary' : 'btn-outline-primary'} w-100 my-2",
+      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
+      <% end %>
+    <% end  %>
+  </div>
+  <div>
+    <button class="btn btn-secondary mb-1 w-100">Save Draft</button>
+    <button class="btn btn-primary mb-1 w-100">Publish</button>
+  </div>
+</div>
