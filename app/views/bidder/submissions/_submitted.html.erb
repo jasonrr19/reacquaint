@@ -1,0 +1,9 @@
+<div class="tab-pane fade py-3" id="published-tab-pane" role="tabpanel" aria-labelledby="published-tab" tabindex="0">
+  <div class="cards">
+    <% @submissions.where(published: true).reverse.each do |submission| %>
+      <div class="card-pick">
+        <%= render "bidder/submissions/submission", submission: submission %>
+      </div>
+    <% end %>
+  </div>
+</div>

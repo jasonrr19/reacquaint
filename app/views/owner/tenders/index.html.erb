@@ -9,42 +9,17 @@
       <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
     <% end %>
   </div>
-  <% if params[:query].present? %>
-    <% @tenders.reverse.each do |tender| %>
-      <div class="card-pick">
-        <%= render 'tenders/card', tender: tender%>
-      </div>
-    <% end %>
-  <% else %>
+  <% if @tenders.any? %>
     <%= render 'owner/tenders/owner_tab' %>
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
-        <div class="cards">
-          <%= link_to new_tender_path, class: 'text-decoration-none' do %>
-            <div class="card-pick bg-secondary-subtle">
-              <h5 class="text-center vertical-center fw-semibold">+ Create New Tender</h5>
-            </div>
-          <% end %>
-          <% @tenders.where(published: false).reverse.each do |tender| %>
-            <div class="card-pick">
-              <%= render 'tenders/card', tender: tender%>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="tab-pane fade py-3" id="published-tab-pane" role="tabpanel" aria-labelledby="published-tab" tabindex="0">
-        <div class="cards">
-          <% @tenders.where(published: true).reverse.each do |tender| %>
-            <div class="card-pick">
-              <%= render 'tenders/card', tender: tender %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      <div class="tab-pane fade py-3" id="conversations-tab-pane" role="tabpanel" aria-labelledby="conversations-tab" tabindex="0">
+      <%= render 'owner/tenders/draft' %>
+      <%= render 'owner/tenders/published' %>
+      <div class="tab-pane fade py-3" id="closed-tab-pane" role="tabpanel" aria-labelledby="closed-tab" tabindex="0">
         <div class="cards">
         </div>
       </div>
     </div>
+  <% else %>
+    <h4 class="pt-3">No matching results</h4>
   <% end %>
 </div>

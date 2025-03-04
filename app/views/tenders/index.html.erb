@@ -9,18 +9,22 @@
       <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
     <% end %>
   </div>
-  <div class="cards my-3">
-    <% @tenders.each do |tender| %>
-      <div class="card-pick">
-        <div class="d-flex mt-2 ms-2">
-        </div>
-        <%= link_to tender_path(tender), class: "text-decoration-none h-100" do %>
-          <div class="card-pick-info">
-            <h6><b>Project:</b></h6>
-            <h5 class= "text-black", style= "text-decoration: none"><%= tender.title %></h5>
+  <% if @tenders.any? %>
+    <div class="cards my-3">
+      <% @tenders.each do |tender| %>
+        <div class="card-pick">
+          <div class="d-flex mt-2 ms-2">
           </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+          <%= link_to tender_path(tender), class: "text-decoration-none h-100" do %>
+            <div class="card-pick-info">
+              <h6><b>Project:</b></h6>
+              <h5 class= "text-black", style= "text-decoration: none"><%= tender.title %></h5>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <h4 class="pt-3">No matching results</h4>
+  <% end %>
 </div>
