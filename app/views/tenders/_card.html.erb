@@ -1,13 +1,19 @@
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
   <div class="">
     <div class="text-black p-4">
-      <h5>Projects: <%= tender.title %></h5>
-      <h6><%= tender.synopsis %></h6>
+      <h5><%= tender.title %></h5>
+      <h6 class="Synopsis-h6"><%= tender.synopsis %></h6>
     </div>
-    <div class="" style="text-decoration: none;">
-      <%= link_to 'Submissions', tender_submissions_path(tender),
-                                class: "text-black p-4",
+    <div class="submission-grid flex-fill bg-success" style="text-decoration: none;">
+      <% if tender.submissions.where(published: true).count == 0 %>
+        <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
+                                class: "submission-text text-black bg-warning",
                                 style: "text-decoration: none;" %>
+      <% else %>
+        <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
+                                class: "submission-text text-black ",
+                                style: "text-decoration: none;" %>
+      <% end %>
     </div>
   </div>
 <% end %>
