@@ -27,7 +27,7 @@
           <li class="nav-item active">
           </li>
           <li class="nav-item dropdown">
-            <%= image_tag "account-logo.png", class: "avatar dropdown-toggle me-2", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "account-logo.png", class: "avatar dropdown-toggle me-4", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% if current_user.owner %>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
