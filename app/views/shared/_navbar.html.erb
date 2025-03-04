@@ -1,7 +1,19 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand", style: 'font-family: jura;' do %>
-      <h4 class="text-white mb-0">Reacquaint</h4>
+    <% if user_signed_in? %>
+      <% if current_user.owner %>
+        <%= link_to owner_tenders_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+          <h4 class="text-white mb-0">Reacquaint</h4>
+        <% end %>
+      <% else %>
+        <%= link_to tenders_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+          <h4 class="text-white mb-0">Reacquaint</h4>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= link_to owner_tenders_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+        <h4 class="text-white mb-0">Reacquaint</h4>
+      <% end %>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -9,28 +21,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link text-white" %>
-          </li>
           <% if current_user.owner %>
-            <li class="nav-item active">
-              <%= link_to "Profile", owner_tenders_path, class: "nav-link text-white" %>
-            </li>
           <% else %>
             <li class="nav-item active">
-              <%= link_to "All Tenders", tenders_path, class: "nav-link text-white" %>
-            </li>
-            <li class="nav-item active">
-              <%= link_to "Profile", bidder_submissions_path, class: "nav-link text-white" %>
+              <%= link_to "My submission", bidder_submissions_path, class: "nav-link text-white" %>
             </li>
           <% end %>
           <li class="nav-item active">
-            <% if policy(Tender).new? %>
-              <%= link_to "New Tender", new_tender_path, class: "nav-link text-white" %>
-            <% end %>
           </li>
           <li class="nav-item dropdown">
-            <%= image_tag "account-logo.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "account-logo.png", class: "avatar dropdown-toggle me-3", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
             </div>
