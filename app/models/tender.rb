@@ -15,4 +15,11 @@ class Tender < ApplicationRecord
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
+
+    def completed_percent
+      total = selected_prerequisites.count + 1
+      completed = selected_prerequisites.joins(:rich_text_description).where.not(action_text_rich_texts: { body: nil }).count
+      completed += 1 if synopsis.present?
+      completed.fdiv(total) * 100
+    end
 end

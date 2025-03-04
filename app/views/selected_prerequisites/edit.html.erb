@@ -1,41 +1,17 @@
-<%= link_to tender_path(@selected_prerequisite.tender), class: "btn btn-primary m-3" do %>
-  <i class="fa-solid fa-arrow-left"></i>
+<%= turbo_frame_tag :edit_prereq do %>
+  <%= render "selected_prerequisites/edit_frame", selected_prerequisite: @selected_prerequisite %>
 <% end %>
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <%= turbo_frame_tag :edit_prereq do %>
-        <%= simple_form_for(@selected_prerequisite) do |f| %>
-          <%= f.submit 'Save', class: 'btn btn-success my-2' %>
-          <%= f.rich_text_area :description %>
-          <%= f.input :approved %>
-          <h5> <i class="fa-solid fa-wand-magic-sparkles"></i> Tender Prerequisite Gap Analysis</h5>
-          <div class="card card-body">
-            <% if @selected_prerequisite.analysis.blank? %>
-              <!-- after the ai updates we replace this div. Don't change ID. -->
-              <div id="s-prereq-<%= @selected_prerequisite.id%>" data-controller="remove-hide">
-                <p data-remove-hide-target="objective" class="d-none"><i class="fa-solid fa-spinner fa-spin"></i><span data-controller="typed"></span></p>
-                <!-- hiding link to user but clicking automatically with Stimulus controller on connect. -->
-                <%= link_to "Analyse", analyse_selected_prerequisite_path(@selected_prerequisite), class: "btn btn-primary", data: { turbo_method: :patch, action: "click->remove-hide#remove"}, role: "button" %>
-              </div>
-            <% else %>
-              <%= render "selected_prerequisites/analysis", selected_prerequisite: @selected_prerequisite %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
+<div class="row d-flex">
+  <div class="col-6 p-3">
+  </div>
+  <div class="col-6 p-3">
+    <div>
+      <%= link_to "Rewrite", rewrite_selected_prerequisite_path(@selected_prerequisite), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
     </div>
-    <div class="row d-flex">
-      <div class="col-6 p-3">
-      </div>
-      <div class="col-6 p-3">
-        <div>
-          <%= link_to "Rewrite", rewrite_selected_prerequisite_path(@selected_prerequisite), class: "btn btn-primary", data: { turbo_method: :patch }, role: "button"   %>
-        </div>
-        <div class="card card-body">
-          <%= @selected_prerequisite.suggested_rewrite %>
-        </div>
-      </div>
+    <div class="card card-body">
+      <%= @selected_prerequisite.suggested_rewrite %>
     </div>
   </div>
+</div>
+</div>
 </div>

@@ -8,7 +8,18 @@ class SelectedPrerequisitesController < ApplicationController
   def update
     authorize @selected_prerequisite
     if @selected_prerequisite.update(selected_prerequisite_params)
-      redirect_to tender_path(@selected_prerequisite.tender), notice: "Updated!"
+
+      respond_to do |format|
+        format.html { redirect_to tender_path(@selected_prerequisite.tender), notice: "Updated!" }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("p-bar",
+            partial: 'tenders/progress_bar',
+            locals: {
+              tender: @selected_prerequisite.tender,
+            }
+          )
+        end
+      end
     else
       render :edit, status: :unprocessable_entity
     end

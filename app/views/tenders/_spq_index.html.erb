@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-start">
     <%= link_to "Project Synopsis", tender_path(tender), class: "active btn btn-outline-primary w-100 my-2",
     data: { active_button_target: "link", action: "click->active-button#toggle" } %>
-    <% tender.selected_prerequisites.each do |prerequisite| %>
+    <% tender.selected_prerequisites.joins(:prerequisite).order("prerequisites.name ASC").each do |prerequisite| %>
       <%= link_to prerequisite.prerequisite.name.capitalize, edit_selected_prerequisite_path(prerequisite),
       class: "btn #{prerequisite.id == params[:id] ? 'btn-primary' : 'btn-outline-primary'} w-100 my-2",
       data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
