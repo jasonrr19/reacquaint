@@ -56,7 +56,7 @@ class OpenaiService
 	  2. Identify gaps and areas for improvement based on:
       •	Industry standards and best practices relevant to the requirement title.
       •	The specific context and goals outlined in the project synopsis.
-	  3.Draft a concise report (max. 250 words) structured with bullet points and subheadings.
+	  3.Draft a concise report (max. 250 words) structured with bullet points, spacings, and subheadings.
       •	Highlight missing details, ambiguities, or inconsistencies.
       •	Suggest specific improvements to enhance clarity, completeness, and relevance.
 

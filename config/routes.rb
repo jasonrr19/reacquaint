@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :selected_prerequisites, only: [:edit, :update] do
+  resources :selected_prerequisites, only: [:edit, :update, :show] do
     member do
       patch :rewrite
       patch :analyse

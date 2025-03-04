@@ -28,4 +28,7 @@ class SelectedPrerequisitePolicy < ApplicationPolicy
     return record.tender.user == user
   end
 
+  def show?
+    return record.tender.user == user || record.tender.published?
+  end
 end
