@@ -12,6 +12,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  h6 {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 .card-pick img {
   width: 100%;

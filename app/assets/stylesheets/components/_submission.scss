@@ -1,0 +1,36 @@
+.submission-grid {
+  display: flex;
+  flex-direction: column;
+  height: 45px;
+  width: 425px;
+  background-color: white;
+  cursor: pointer;
+  border-color: rgba(24, 24, 27, 0.08);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 23px;
+  position: relative;
+
+}
+
+.submission-grid:hover {
+  transition: 0.2s ease-out;
+  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
+    border-color: rgba(24, 24, 27, 0.08);
+
+  outline: 3px solid rgba(116, 31, 162, 0.589);
+}
+
+.submission-text{
+  height: 100px;
+  text-align: center;
+  padding-top: 11px;
+}
+
+// .Synopsis-h6{
+//   text-overflow: ellipsis;
+//   width: 100%;
+//   overflow: hidden;
+//   white-space: nowrap;
+// }
