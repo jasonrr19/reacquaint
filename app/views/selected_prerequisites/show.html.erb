@@ -1,0 +1,6 @@
+<%= turbo_frame_tag :edit_prereq do %>
+  <div class="container my-3">
+    <h3><%= @selected_prerequisite.prerequisite.name.titleize %></h3>
+    <p><%= @selected_prerequisite.description %></p>
+  </div>
+<% end %>

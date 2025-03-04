@@ -1,5 +1,5 @@
 class SelectedPrerequisitesController < ApplicationController
-  before_action :selected_prerequisite, only: %i[edit update rewrite analyse]
+  before_action :selected_prerequisite, only: %i[edit update rewrite analyse show]
 
   def edit
     authorize @selected_prerequisite
@@ -61,6 +61,10 @@ class SelectedPrerequisitesController < ApplicationController
         )
       end
     end
+  end
+
+  def show
+    authorize @selected_prerequisite
   end
 
   private
