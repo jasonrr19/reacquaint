@@ -1,13 +1,6 @@
 <div class="container">
   <%# Progress Bar %>
-  <div class="progress rounded-pill mb-3" style="padding:5px; background-color:rgb(228, 231, 233); height: 24px">
-    <div class="progress-bar bg-primary rounded-pill"
-            role="progressbar"
-            style="width: 30%;"
-            aria-valuemin="0"
-            aria-valuemax="100">
-    </div>
-  </div>
+  <%= render "tenders/progress_bar", tender: @tender %>
   <%# Title and Back Button%>
   <div class="row">
     <div class="col-12 border border-dark d-flex align-items-center text-start">
@@ -23,7 +16,10 @@
     <%# Selected Prereq Edit Frame%>
     <div class="col-8 vh-100 border border-dark overflow-scroll">
       <%= turbo_frame_tag :edit_prereq do %>
-        <p> <%= @tender.synopsis %></p>
+        <div class="container my-3">
+          <h4> Project Synopsis </h4>
+          <p> <%= @tender.synopsis %></p>
+        </div>
       <% end %>
     </div>
   </div>

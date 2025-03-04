@@ -1,0 +1,15 @@
+<div class="container">
+  <h5> <i class="fa-solid fa-wand-magic-sparkles"></i> Ask Reacquaint to Analyse Your Requirement</h5>
+  <div class="card card-body">
+    <% if @selected_prerequisite.analysis.blank? %>
+      <!-- after the ai updates we replace this div. Don't change ID. -->
+      <div id="s-prereq-<%= @selected_prerequisite.id%>" data-controller="remove-hide">
+        <p data-remove-hide-target="objective" class="d-none"><i class="fa-solid fa-spinner fa-spin"> </i><span data-controller="typed"></span></p>
+        <!-- hiding link to user but clicking automatically with Stimulus controller on connect. -->
+        <%= link_to "Analyse", analyse_selected_prerequisite_path(selected_prerequisite), class: "btn btn-primary w-100", data: { turbo_method: :patch, action: "click->remove-hide#remove"}, role: "button" %>
+      </div>
+    <% else %>
+      <%= render "selected_prerequisites/analysis", selected_prerequisite: @selected_prerequisite %>
+    <% end %>
+  </div>
+</div>
