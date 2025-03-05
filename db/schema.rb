@@ -54,12 +54,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
 
   create_table "compatible_employees", force: :cascade do |t|
     t.string "why_compatible"
-    t.bigint "employees_id", null: false
+    t.bigint "employee_id", null: false
     t.bigint "compatible_responses_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["compatible_responses_id"], name: "index_compatible_employees_on_compatible_responses_id"
-    t.index ["employees_id"], name: "index_compatible_employees_on_employees_id"
+    t.index ["employee_id"], name: "index_compatible_employees_on_employee_id"
   end
 
   create_table "compatible_responses", force: :cascade do |t|
@@ -79,10 +79,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
     t.string "job_title"
     t.string "job_description"
     t.text "experience"
-    t.bigint "users_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_employees_on_users_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
   create_table "prerequisites", force: :cascade do |t|
@@ -141,10 +141,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "compatible_employees", "compatible_responses", column: "compatible_responses_id"
-  add_foreign_key "compatible_employees", "employees", column: "employees_id"
+  add_foreign_key "compatible_employees", "employees"
   add_foreign_key "compatible_responses", "selected_prerequisites"
   add_foreign_key "compatible_responses", "submissions"
-  add_foreign_key "employees", "users", column: "users_id"
+  add_foreign_key "employees", "users"
   add_foreign_key "selected_prerequisites", "prerequisites"
   add_foreign_key "selected_prerequisites", "tenders"
   add_foreign_key "submissions", "tenders"
