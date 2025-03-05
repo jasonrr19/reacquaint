@@ -3,12 +3,13 @@
     <%= form_with url: tenders_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
-            class: "form-control",
+            class: "form-control s-bar",
             placeholder: "Type a keyword"
         %>
-      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+      <%= submit_tag "Search", name: "", class: "btn btn-primary s-button" %>
     <% end %>
   </div>
+  <hr>
   <% if @tenders.any? %>
     <div class="cards my-3">
       <% @tenders.each do |tender| %>
