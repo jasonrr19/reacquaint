@@ -156,6 +156,12 @@ class OpenaiService
       renderer = Redcarpet::Render::HTML.new
       markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
       SelectedPrerequisite.create(description: markdown.render(@result), tender: @tender, prerequisite: prerequisite)
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "tender_#{@tender.id}_links",
+        target: "spq-index-links",
+        partial: "tenders/spq_index_links",
+        locals: { tender: @tender }
+      )
     end
   end
 
@@ -199,6 +205,12 @@ class OpenaiService
       markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
       @tender.synopsis = markdown.render(@result)
       @tender.save
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "tender_#{@tender.id}_links",
+        target: "tender-synopsis",
+        partial: "tenders/synopsis",
+        locals: { tender: @tender }
+      )
   end
 
   # Submission & Compatible Responses (Original)

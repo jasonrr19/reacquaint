@@ -20,11 +20,15 @@ User.destroy_all
 Prerequisite.destroy_all
 puts "everything destroyed..."
 
-PREREQUISITES = ["health and safety", "budget control", "quality", "qualifications", "environment"]
+PREREQUISITES = [
+  { name: "budget control", fa_class: "fa-regular fa-money-bill-1"},
+  { name: "environment", fa_class: "fa-regular fa-sun" },
+  { name: "health and safety", fa_class: "fa-regular fa-heart"},
+  { name: "qualifications", fa_class: "fa-regular fa-clipboard"},
+  { name: "quality", fa_class: "fa-regular fa-star"}
+]
 puts "creating prerequisites..."
-PREREQUISITES.each do |name|
-  Prerequisite.create!(name: name)
-end
+Prerequisite.create!(PREREQUISITES)
 
 puts "created #{Prerequisite.count} prerequisite"
 

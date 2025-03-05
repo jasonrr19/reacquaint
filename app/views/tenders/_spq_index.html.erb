@@ -1,24 +1,25 @@
-<div class="d-flex flex-column justify-content-between h-100" data-controller="active-button">
-  <div class="d-flex flex-column align-items-start">
-    <%= link_to "Project Synopsis", tender_path(tender), class: "active btn btn-outline-primary w-100 my-2",
-    data: { active_button_target: "link", action: "click->active-button#toggle" } %>
-    <% tender.selected_prerequisites.joins(:prerequisite).order("prerequisites.name ASC").each do |prerequisite| %>
-      <% if policy(prerequisite).edit? %>
-        <%= link_to prerequisite.prerequisite.name.titleize, edit_selected_prerequisite_path(prerequisite),
-      class: "btn #{prerequisite.id == params[:id] ? 'btn-primary' : 'btn-outline-primary'} w-100 my-2",
-      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
-      <% else %>
-        <%= link_to prerequisite.prerequisite.name.titleize, selected_prerequisite_path(prerequisite),
-      class: "btn #{prerequisite.id == params[:id] ? 'btn-primary' : 'btn-outline-primary'} w-100 my-2",
-      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
-      <% end %>
-    <% end  %>
+<div class="d-flex flex-column justify-content-between" style="height: calc(100vh - 80px);" data-controller="active-button">
+  <div class="d-flex flex-column align-items-start pt-3">
+    <h3><%= tender.title %></h3>
+    <div class="d-flex align-items-center border-top border-bottom w-100 py-3 ms-1 ">
+      <i data-active-button-target="icon" class="fa-regular fa-file-lines me-2 text-primary"></i>
+      <%= link_to "Tender Overview", tender_path(tender), class: "fw-normal text-decoration-none text-secondary w-100",
+      data: { active_button_target: "link", action: "click->active-button#toggle" } %>
+    </div>
+    <div class="border-bottom pb-3 w-100">
+      <h5 class="m-0 pt-3 pb-2">Prerequisites</h5>
+      <%= turbo_stream_from "tender_#{tender.id}_links" %>
+      <%= render 'tenders/spq_index_links', tender: tender %>
+    </div>
   </div>
   <div>
-    <button class="btn btn-secondary mb-1 w-100">Save Draft</button>
     <%= simple_form_for tender do |f| %>
-      <%= f.input :published, as: :hidden, input_html: { value: true } %>
-      <%= f.submit "Publish", class: "btn btn-primary mb-1 w-100"  %>
+      <%= f.input_field :published, as: :hidden, value: true %>
+      <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100" %>
+    <% end %>
+    <%= simple_form_for tender do |f| %>
+      <%= f.input_field :published, as: :hidden, value: false %>
+      <%= f.submit 'Save Draft', class: "btn btn-outline-secondary mb-1 w-100" %>
     <% end %>
   </div>
 </div>

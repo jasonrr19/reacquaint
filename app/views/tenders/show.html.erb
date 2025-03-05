@@ -1,12 +1,6 @@
 <div class="container">
   <%# Progress Bar %>
   <%= render "tenders/progress_bar", tender: @tender %>
-  <%# Title and Back Button%>
-  <div class="row">
-    <div class="col-12 border border-dark d-flex align-items-center text-start">
-      <p class="mb-0 display-4"><%= @tender.title %></p>
-    </div>
-  </div>
   <%# Selected Prereq Index Sidebar and Edit Frame%>
   <div class="row">
     <%# Selected Prereq Index Sidebar%>
@@ -18,7 +12,7 @@
       <%= turbo_frame_tag :edit_prereq do %>
         <div class="container my-3">
           <h3> Project Synopsis </h3>
-          <p> <%= @tender.synopsis %></p>
+          <%= render "tenders/synopsis", tender: @tender %>
         </div>
       <% end %>
     </div>

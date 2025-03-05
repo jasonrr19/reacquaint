@@ -6,6 +6,7 @@ class Tender < ApplicationRecord
   has_rich_text :synopsis
   has_many :submissions, dependent: :destroy
   has_many :users, through: :submissions
+  has_many :prerequisites, through: :selected_prerequisites
   validates :title, presence: true
   has_one_attached :document
   # validates :published, presence: true
@@ -19,8 +20,7 @@ class Tender < ApplicationRecord
     }
 
     def create_selected_prerequisites
-      OpenaiService.new(tender: self).spq_read
-      OpenaiService.new(tender: self).tender_brief
+      TenderCreationJob.perform_later(self)
     end
 
     def completed_percent

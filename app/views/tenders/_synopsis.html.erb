@@ -1,0 +1,8 @@
+<div id="tender-synopsis">
+  <% if tender.synopsis.blank? %>
+    <i class="fa-solid fa-spinner fa-spin me-2 text-secondary text-center"></i>
+    <p> Reacquaint is building the synopsis </p>
+  <% else %>
+    <p> <%= @tender.synopsis %></p>
+  <% end %>
+</div>

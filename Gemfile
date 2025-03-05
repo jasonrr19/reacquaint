@@ -83,3 +83,7 @@ gem 'redcarpet'
 gem "pg_search"
 
 gem "pdf-reader"
+
+gem "solid_cable"
+
+gem "solid_queue"
