@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_28_054314) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_054314) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "compatible_employees", force: :cascade do |t|
+    t.string "why_compatible"
+    t.bigint "employees_id", null: false
+    t.bigint "compatible_responses_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["compatible_responses_id"], name: "index_compatible_employees_on_compatible_responses_id"
+    t.index ["employees_id"], name: "index_compatible_employees_on_employees_id"
+  end
+
   create_table "compatible_responses", force: :cascade do |t|
     t.boolean "approved", default: false
     t.float "score"
@@ -62,6 +72,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_054314) do
     t.text "draft"
     t.index ["selected_prerequisite_id"], name: "index_compatible_responses_on_selected_prerequisite_id"
     t.index ["submission_id"], name: "index_compatible_responses_on_submission_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name"
+    t.string "job_title"
+    t.string "job_description"
+    t.text "experience"
+    t.bigint "users_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_employees_on_users_id"
   end
 
   create_table "prerequisites", force: :cascade do |t|
@@ -119,8 +140,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_28_054314) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "compatible_employees", "compatible_responses", column: "compatible_responses_id"
+  add_foreign_key "compatible_employees", "employees", column: "employees_id"
   add_foreign_key "compatible_responses", "selected_prerequisites"
   add_foreign_key "compatible_responses", "submissions"
+  add_foreign_key "employees", "users", column: "users_id"
   add_foreign_key "selected_prerequisites", "prerequisites"
   add_foreign_key "selected_prerequisites", "tenders"
   add_foreign_key "submissions", "tenders"
