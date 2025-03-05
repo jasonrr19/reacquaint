@@ -10,10 +10,12 @@ require 'faker'
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 puts "destroying everything..."
+CompatibleEmployee.destroy_all
 CompatibleResponse.destroy_all
 SelectedPrerequisite.destroy_all
 Submission.destroy_all
 Tender.destroy_all
+Employee.destroy_all
 User.destroy_all
 Prerequisite.destroy_all
 puts "everything destroyed..."
@@ -124,6 +126,19 @@ User.where(owner: false).each do |user|
     compatible_response.save!
   end
 end
+User.where(owner: false).each do |user|
+  # Create a set of employees for each bidder
+  5.times do |i|  # You can adjust the number of employees per bidder here
+    employee = Employee.new(
+      user: user,
+      name: "#{user.company_name} Employee #{i + 1}",
+      job_title: ["Project Manager", "Engineer", "Architect", "Site Supervisor", "Estimator"].sample,
+      job_description: "Responsible for various tasks related to the construction project.",
+      experience: "Experience place holder"
+    )
+    employee.save!
+  end
+end
 # simulating a bid process that just started for a contractor right cool.
 User.where(owner: false).each do |user|
   tender = Tender.where.not(id: user.tenders_as_bidder).sample
@@ -140,8 +155,16 @@ User.where(owner: false).each do |user|
       submission: submission
     )
     compatible_response.save!
+    user.employees.sample(3)
+    compatible_employee = CompatibleEmployee.new(
+      why_compatible: "He has 20 years of experience",
+      compatible_response: compatible_response,
+      employee: user.employees.sample
+    )
+    compatible_employee.save!
   end
 end
+
 puts "submissions created..."
 
 puts "creating selected prerequisites..."
@@ -150,3 +173,4 @@ puts "creating selected prerequisites..."
 puts "selected prerequisites created..."
 
 puts "created #{User.count}users, #{Tender.count}tenders, #{Submission.count}submissions, #{SelectedPrerequisite.count}selected prerequisites, and #{CompatibleResponse.count}compatible responses!"
+puts "created  #{Employee.count}employees,  #{CompatibleEmployee.count} compatible employees"

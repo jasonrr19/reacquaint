@@ -55,10 +55,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
   create_table "compatible_employees", force: :cascade do |t|
     t.string "why_compatible"
     t.bigint "employee_id", null: false
-    t.bigint "compatible_responses_id", null: false
+    t.bigint "compatible_response_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["compatible_responses_id"], name: "index_compatible_employees_on_compatible_responses_id"
+    t.index ["compatible_response_id"], name: "index_compatible_employees_on_compatible_response_id"
     t.index ["employee_id"], name: "index_compatible_employees_on_employee_id"
   end
 
@@ -140,7 +140,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_05_024617) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "compatible_employees", "compatible_responses", column: "compatible_responses_id"
+  add_foreign_key "compatible_employees", "compatible_responses"
   add_foreign_key "compatible_employees", "employees"
   add_foreign_key "compatible_responses", "selected_prerequisites"
   add_foreign_key "compatible_responses", "submissions"
