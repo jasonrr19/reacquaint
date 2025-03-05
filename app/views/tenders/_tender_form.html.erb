@@ -2,6 +2,7 @@
   <div class="form-floating pb-3">
     <%= f.input_field :title, class: 'form-control tender_title', id: 'floatingInput tender_title' ,placeholder: 'Project Title' %>
     <%= f.label :title, "Project Title" %>
+    <%= f.input :document, as: :file %>
   </div>
   <div class="form-floating">
     <%= f.text_area :synopsis, as: :text, class: 'form-control tender_synopsis', id: 'floatingInput' ,placeholder: 'Project Title' %>
