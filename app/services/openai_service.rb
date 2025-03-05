@@ -1,4 +1,5 @@
 require "open-uri"
+require "pdf-reader"
 
 class OpenaiService
   def initialize(attrs = {})
@@ -147,7 +148,7 @@ class OpenaiService
       chatgpt_response = @client.chat(parameters: {
         model: "gpt-4o-mini",
         messages: [
-          { role: "user", content: bidder_persona},
+          { role: "user", content: owner_persona},
           { role: "user", content: instructions}
         ]
       })
@@ -156,6 +157,48 @@ class OpenaiService
       markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
       SelectedPrerequisite.create(description: markdown.render(@result), tender: @tender, prerequisite: prerequisite)
     end
+  end
+
+  def tender_brief
+    concat_descriptions = ""
+    @tender.selected_prerequisites do |spq|
+      input = "
+      #{spq.prerequisite.name}
+
+      #{spq.description}
+      "
+      concat_descriptions += input
+    end
+      instructions = <<~INSTRUCTIONS
+      Task:
+        1.	Review the Tender Requirements
+        •	Carefully read the consolidated descriptions of all prerequisites and requirements provided in the tender document.
+        2.	Summarize Key Information
+        •	Create a one-page executive summary (tender brief) that highlights essential details.
+        •	Structure the summary into the following sections:
+        •	Requirements: Core eligibility criteria and mandatory conditions.
+        •	Key Points & Considerations: Important aspects, unique conditions, or critical evaluation criteria.
+        •	Other Noteworthy Information: Additional details that may impact a bidder’s decision.
+        3.	Objective:
+        •	Ensure the summary allows prospective bidders to quickly assess if the tender is relevant and worth pursuing.
+        •	Do not return thought process or any other commentary. Only return the executive summary.
+
+      Source Material:
+        •	The consolidated descriptions of all prerequisites and requirements are: #{concat_descriptions}.
+      INSTRUCTIONS
+
+      chatgpt_response = @client.chat(parameters: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "user", content: owner_persona},
+          { role: "user", content: instructions}
+        ]
+      })
+      @result = chatgpt_response["choices"][0]["message"]["content"]
+      renderer = Redcarpet::Render::HTML.new
+      markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+      @tender.synopsis = markdown.render(@result)
+      @tender.save
   end
 
   # Submission & Compatible Responses (Original)
