@@ -1,0 +1,26 @@
+<div id="spq-index-links">
+  <% tender.selected_prerequisites.order(id: :desc).each_with_index do |selected_prerequisite, index| %>
+    <%# if policy(selected_prerequisite).edit? %>
+    <div class="d-flex align-items-center ms-1 py-2">
+      <i style="width: 20px;" data-active-button-target="icon" class="<%= selected_prerequisite.prerequisite.fa_class %> me-2 text-secondary text-center"></i>
+      <%= link_to selected_prerequisite.prerequisite.name.titleize, edit_selected_prerequisite_path(selected_prerequisite),
+      class: "fw-lighter text-decoration-none text-secondary w-100",
+      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
+    </div>
+    <% if false %>
+      <div class="d-flex align-items-center">
+        <i style="width: 20px;"data-active-button-target="icon" class="<%= selected_prerequisite.prerequisite.fa_class %> me-2 text-secondary text-center"></i>
+        <%= link_to selected_prerequisite.prerequisite.name.titleize, selected_prerequisite_path(selected_prerequisite),
+      class: "fw-lighter text-decoration-none text-secondary w-100",
+      data: { turbo_frame: :edit_prereq, active_button_target: "link", action: "click->active-button#toggle" }  %>
+      </div>
+    <% end %>
+  <% end  %>
+  <% Prerequisite.where.not(id: tender.prerequisites.order(id: :desc)).each_with_index do |prerequisite, index| %>
+    <div class="d-flex align-items-center ms-1 py-2">
+      <i style="width: 20px;" class="fa-solid fa-spinner fa-spin me-2 text-secondary text-center"></i>
+      <%= link_to prerequisite.name.titleize, '#',
+      class: "fw-lighter text-decoration-none text-secondary w-100 disabled" %>
+    </div>
+  <% end  %>
+</div>
