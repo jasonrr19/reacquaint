@@ -5,7 +5,7 @@ class CreateEmployees < ActiveRecord::Migration[7.1]
       t.string :job_title
       t.string :job_description
       t.text :experience
-      t.references :users, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
