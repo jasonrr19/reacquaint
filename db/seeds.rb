@@ -86,8 +86,8 @@ puts "creating tenders..."
   User.where(owner: true).each do |user|
     tender = Tender.new(
       user: user,
-      synopsis: Faker::Quotes::Shakespeare.hamlet_quote,
-      title: Faker::Book.author,
+      title: Faker::Address.community,
+      synopsis: "We invite experienced contractors to submit bids for the renovation of this project. The scope of work includes structural repairs, interior and exterior upgrades, and improvements to safety and accessibility features.",
       published: boolean
     )
     tender.save!
@@ -95,7 +95,7 @@ puts "creating tenders..."
       selected_prerequisite = SelectedPrerequisite.new(
         tender: tender,
         prerequisite: prerequisite,
-        description: Faker::Quotes::Chiquito.sentence,
+        description: "Contractors must demonstrate relevant qualifications and experience, and ensure that environmental considerations are integrated into the project to minimize impact. Proposals should reflect these priorities to ensure the successful completion of the project within established guidelines.",
         approved: boolean
       )
       selected_prerequisite.save!
@@ -120,7 +120,7 @@ User.where(owner: false).each do |user|
     compatible_response = CompatibleResponse.new(
       selected_prerequisite: prereq,
       submission: submission,
-      notes: Faker::Fantasy::Tolkien.poem,
+      notes: "We are pleased to submit our proposal for the renovation project, fully aligning with the specified prerequisites. Our team prioritizes health and safety by implementing rigorous protocols and training.",
       score: rand(1..100)
     )
     compatible_response.save!
@@ -131,10 +131,10 @@ User.where(owner: false).each do |user|
   5.times do |i|  # You can adjust the number of employees per bidder here
     employee = Employee.new(
       user: user,
-      name: "#{user.company_name} Employee #{i + 1}",
+      name: Faker::Name.name,
       job_title: ["Project Manager", "Engineer", "Architect", "Site Supervisor", "Estimator"].sample,
       job_description: "Responsible for various tasks related to the construction project.",
-      experience: "Experience place holder"
+      experience: "#{:name} brings a wealth of experience to the team, having developed a deep understanding and expertise over the course of their extensive career in the industry."
     )
     employee.save!
   end
@@ -168,7 +168,6 @@ end
 puts "submissions created..."
 
 puts "creating selected prerequisites..."
-
 
 puts "selected prerequisites created..."
 
