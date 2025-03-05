@@ -1,10 +1,18 @@
+require "open-uri"
+
 class OpenaiService
   def initialize(attrs = {})
     @selected_prerequisite = attrs[:selected_prerequisite]
     @compatible_response = attrs[:compatible_response]
+    @tender = attrs[:tender]
     @client = OpenAI::Client.new
   end
 
+  def categories
+    ["Health & Safety"]
+  end
+
+  # Personae
   def owner_persona
     <<~PERSONA
     You are a Tender Analysis & Writing Expert for Building and Construction.
@@ -43,8 +51,9 @@ class OpenaiService
     PERSONA
   end
 
+  # Tender & Selected Prerequisites (Original)
   def analyse
-  instructions = <<~INSTRUCTIONS
+    instructions = <<~INSTRUCTIONS
     You are analyzing a requirement description from a tender specifications document. This description is typically copy-pasted from a boilerplate template
     and may not accurately reflect the specific needs of the project. Your goal is to assess and enhance its clarity, alignment with industry best practices,
     and relevance to the project’s objectives.
@@ -118,6 +127,38 @@ class OpenaiService
     markdown.render(@result)
   end
 
+  # Tender & Selected Prerequisites (New)
+  def spq_read
+    url = @tender.document.url
+    file = URI.open(url)
+    pdf = PDF::Reader.new(file)
+    pdf_text = pdf.pages.map(&:text).join("\n\n")
+    Prerequisite.find_each do |prerequisite|
+      instructions = <<~INSTRUCTIONS
+      Analyze the provided PDF text and extract only the content directly relevant to the given prerequisite title: #{prerequisite.name}.
+      Focus on sections, paragraphs, or points that explicitly mention, explain, or build upon this prerequisite.
+      Ignore unrelated or loosely connected content. If relevant information is scattered, consolidate it into a structured summary.
+      Retain key details, technical terms, and any examples that clarify the prerequisite’s role.
+      Ensure coherence and completeness while avoiding redundant or extraneous material.
+
+      The PDF text is #{pdf_text}
+      INSTRUCTIONS
+
+      chatgpt_response = @client.chat(parameters: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "user", content: bidder_persona},
+          { role: "user", content: instructions}
+        ]
+      })
+      @result = chatgpt_response["choices"][0]["message"]["content"]
+      renderer = Redcarpet::Render::HTML.new
+      markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+      SelectedPrerequisite.create(description: markdown.render(@result), tender: @tender, prerequisite: prerequisite)
+    end
+  end
+
+  # Submission & Compatible Responses (Original)
   def write
     instructions = <<~INSTRUCTIONS
     You are reviewing a tender document to assess its requirements and draft a strategically optimized bid response.
@@ -178,15 +219,13 @@ class OpenaiService
   def score
     instructions = <<~INSTRUCTIONS
     You are reviewing a bidder's responses to requirements(selected prerequisites)
-    and their descriptions on a project
-    based on the following rubrics. Match the name on the rubric to the requirement title to which the
-    response is made for the
-    selected prerequisite and generate a numeric score ranging from 1 -100 based on how closely the response succeeds
-    in satisfiying the conditions. Now take each score and generate an overall score that is
-    the average of all scores.
+    and their descriptions on a project based on the following rubrics.
+    Match the name on the rubric to the requirement title to which the response is made for the selected prerequisite
+    and generate a numeric score ranging from 1 -100 based on how closely the response succeeds in satisfiying the conditions.
+    Now take each score and generate an overall score that is the average of all scores.
     Please do not return any text, only an integer score between 1 - 100.
 
-      The requirement description is:
+    The requirement description is:
 
     #{@selected_prerequisite.description}
 
@@ -205,6 +244,7 @@ class OpenaiService
     @result = chatgpt_response["choices"][0]["message"]["content"]
   end
 
-  def new_rewrite
-  end
+  # Submission & Compatible Responses (New)
+
+
 end

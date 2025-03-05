@@ -5,10 +5,10 @@ class Tender < ApplicationRecord
   accepts_nested_attributes_for :selected_prerequisites, allow_destroy: true
   has_many :submissions, dependent: :destroy
   has_many :users, through: :submissions
-  validates :synopsis, presence: true
   validates :title, presence: true
   has_one_attached :document
   # validates :published, presence: true
+  after_create_commit :create_selected_prerequisites
 
   include PgSearch::Model
   pg_search_scope :search_by_title_and_synopsis,
@@ -16,6 +16,10 @@ class Tender < ApplicationRecord
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
+
+    def create_selected_prerequisites
+      OpenaiService.new(tender: self).spq_read
+    end
 
     def completed_percent
       total = selected_prerequisites.count + 1

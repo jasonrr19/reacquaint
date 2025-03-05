@@ -81,3 +81,5 @@ gem "ruby-openai"
 gem 'redcarpet'
 
 gem "pg_search"
+
+gem "pdf-reader"
