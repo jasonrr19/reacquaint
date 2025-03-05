@@ -2,7 +2,7 @@
   <div class="form-floating pb-3">
     <%= f.input_field :title, class: 'form-control tender_title', id: 'floatingInput tender_title' ,placeholder: 'Project Title' %>
     <%= f.label :title, "Project Title" %>
-    <%= f.input :document, as: :file %>
+    <%= f.input :document, as: :file, label: false %>
   </div>
   <div >
     <%= f.submit 'Next', class: 'btn btn-primary w-100 my-5' %>

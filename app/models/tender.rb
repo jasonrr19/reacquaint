@@ -3,6 +3,7 @@ class Tender < ApplicationRecord
 
   has_many :selected_prerequisites, dependent: :destroy
   accepts_nested_attributes_for :selected_prerequisites, allow_destroy: true
+  has_rich_text :synopsis
   has_many :submissions, dependent: :destroy
   has_many :users, through: :submissions
   validates :title, presence: true
@@ -19,6 +20,7 @@ class Tender < ApplicationRecord
 
     def create_selected_prerequisites
       OpenaiService.new(tender: self).spq_read
+      OpenaiService.new(tender: self).tender_brief
     end
 
     def completed_percent
