@@ -1,6 +1,9 @@
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
   <div class="">
     <div class="text-black p-4">
+      <% if tender.document.attached? %>
+        <%= link_to "PDF", cloudinary_url(tender.document.key, resource_type: 'image') %>
+      <% end %>
       <h5><%= tender.title %></h5>
       <h6 class="Synopsis-h6"><%= tender.synopsis %></h6>
     </div>
@@ -14,6 +17,8 @@
                                 class: "submission-text text-black ",
                                 style: "text-decoration: none;" %>
       <% end %>
+      <div>
+      </div>
     </div>
   </div>
-<% end %>
+<% end %>3

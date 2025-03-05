@@ -44,6 +44,6 @@ class TendersController < ApplicationController
   private
 
   def tender_params
-    params.require(:tender).permit(:title, :synopsis, :published, selected_prerequisites_attributes: [:prerequisite_id])
+    params.require(:tender).permit(:title, :synopsis, :published, :document, selected_prerequisites_attributes: [:prerequisite_id])
   end
 end
