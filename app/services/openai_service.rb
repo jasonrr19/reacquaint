@@ -1,4 +1,5 @@
 require "open-uri"
+require "pdf-reader"
 
 class OpenaiService
   def initialize(attrs = {})
