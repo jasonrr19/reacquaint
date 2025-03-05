@@ -16,6 +16,9 @@
   </div>
   <div>
     <button class="btn btn-secondary mb-1 w-100">Save Draft</button>
-    <button class="btn btn-primary mb-1 w-100">Publish</button>
+    <%= simple_form_for tender do |f| %>
+      <%= f.input :published, as: :hidden, input_html: { value: true } %>
+      <%= f.submit "Publish", class: "btn btn-primary mb-1 w-100"  %>
+    <% end %>
   </div>
 </div>
