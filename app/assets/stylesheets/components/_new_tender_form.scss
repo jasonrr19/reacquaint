@@ -1,9 +1,81 @@
-.tender_title {
-  box-sizing: content-box;
-  font-size: 27px;
-  font-weight: 500;
+.background-gray {
+  background-color: #ededed;
 }
 
-.tender_synopsis {
-  box-sizing: content-box;
+.upload-file {
+  width: 660px;
+  text-align: center;
+  font-size: large;
+  margin: 10px;
+  padding-top: 50px;
+  background-color: $upload-tender-bg;
+  border: 2px dashed $light-gray;
+  border-radius: 16px;
+}
+
+.file {
+  display: flex;
+  justify-content: center;
+  height: 200px;
+  width: 650px;
+  margin: 15px 0px;
+}
+
+.upload-file:hover {
+  border-color: $primary;
+}
+
+.vertical-align {
+  background-color: $light-gray;
+  margin-top: 70px;
+  width: 50vw;
+  height: max-content;
+  padding: 30px 50px;
+  h1 {
+    padding-bottom: 30px;
+  }
+}
+
+
+#tender_document {
+  box-sizing: border-box;
+  margin-top: 30px;
+  border-radius: 30px;
+  display: block;
+  padding-left: 4;
+  border: 1px dashed;
+}
+
+.tender-title {
+  box-sizing: border-box;
+  size: 60px;
+  padding-block: 30px;
+  font-size: 30px;
+  font-weight: 500;
+  border-radius: 16px;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 10px;
+  height: 45px;
+  background-color: rgb(228, 228, 228);
+}
+
+.purple-btn {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: $primary;
+  color: $light-gray;
+  border-radius: 16px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  p {
+    font-size: 1.25rem;
+    padding: 10px;
+  }
 }
