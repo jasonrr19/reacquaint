@@ -1,26 +1,28 @@
 <div class="ms-5">
   <% if tender.document.attached? %>
-    <%= link_to "PDF", cloudinary_url(tender.document.key, resource_type: 'image'), class: 'text-end' %>
+    <%= link_to cloudinary_url(tender.document.key, resource_type: 'image'), class: 'pdf-icon fa-lg' do %>
+      <i class="fa-solid fa-file"></i>
+    <% end %>
   <% end %>
 </div>
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
   <div class="">
     <div class="text-black p-4">
       <h5><%= tender.title %></h5>
-      <h6 class="Synopsis-h6"><%= tender.synopsis %></h6>
-    </div>
-    <div class="submission-grid flex-fill bg-success" style="text-decoration: none;">
-      <% if tender.submissions.where(published: true).count == 0 %>
-        <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
+      <%# <h6 class="Synopsis-h6"><%= tender.synopsis %></h6>
+  </div>
+  <!--  <div class="submission-grid flex-fill bg-success" style="text-decoration: none;">
+    <% if tender.submissions.where(published: true).count == 0 %>
+      <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
                                 class: "submission-text text-black bg-warning",
                                 style: "text-decoration: none;" %>
-      <% else %>
-        <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
+    <% else %>
+      <%= link_to "#{tender.submissions.where(published: true).count} Submissions", tender_submissions_path(tender),
                                 class: "submission-text text-black ",
                                 style: "text-decoration: none;" %>
-      <% end %>
-      <div>
-      </div>
+    <% end %>
+    <div>
     </div>
-  </div>
-<% end %>3
+  </div> -->
+</div>
+<% end %>
