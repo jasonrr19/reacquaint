@@ -1,33 +1,26 @@
 <div class="tab-pane fade" id="team-tab-pane" role="tabpanel" aria-labelledby="team-tab" tabindex="0">
-<% Employee.all.each do |employee| %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Job Title</th>
+        <th scope="col">Compatible Response</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <% if compatible_response && compatible_response.compatible_employees.any? %>
+        <% compatible_response.compatible_employees.each do |compatible_employee| %>
+          <tr>
+            <td><%= compatible_employee.employee.name %></td>
+            <td><%= compatible_employee.employee.job_title %></td>
+            <td><%= compatible_employee.why_compatible %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td>No employees found yet...</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody class="table-group-divider">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
-<% end %>
