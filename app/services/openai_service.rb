@@ -146,7 +146,7 @@ class OpenaiService
     file = URI.open(url)
     pdf = PDF::Reader.new(file)
     pdf_text = pdf.pages.map(&:text).join("\n\n")
-    Prerequisite.find_each do |prerequisite|
+    Prerequisite.order(id: :asc).find_each do |prerequisite|
       SelectedPrerequisiteCreationJob.perform_later(pdf_text, @tender, prerequisite, owner_persona)
     end
     SynopsisCreationJob.perform_later(@tender)
