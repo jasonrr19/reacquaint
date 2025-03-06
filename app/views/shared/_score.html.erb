@@ -1,0 +1,25 @@
+<% if score.class == Integer || score.class == Float %>
+  <div class="single-chart">
+    <% if score <= 70 %>
+      <% chart_class = "circular-chart c-score-red" %>
+    <% elsif score > 70 && score < 90 %>
+      <% chart_class = "circular-chart c-score-yellow" %>
+    <% else %>
+      <% chart_class = "circular-chart c-score-green" %>
+    <% end %>
+    <svg viewBox="0 0 36 36" class="<%= chart_class %>">
+      <path class="circle-bg"
+        d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+      />
+      <path class="circle"
+        stroke-dasharray="<%= score %>, 100"
+        d="M18 2.0845
+          a 15.9155 15.9155 0 0 1 0 31.831
+          a 15.9155 15.9155 0 0 1 0 -31.831"
+      />
+      <text x="18" y="20.35" class="percentage"><%= score %>%</text>
+      </svg>
+    </div>
+  <% end %>

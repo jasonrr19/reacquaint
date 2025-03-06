@@ -24,4 +24,10 @@ class Submission < ApplicationRecord
     using: {
       tsearch: { prefix: true } # <-- now `superman batm` will return something!
     }
+
+    def average_score
+      return "-" if compatible_responses.empty? || compatible_responses.pluck(:score).all?(&:nil?)
+
+      compatible_responses.pluck(:score).reject(&:nil?).sum.fdiv(compatible_responses.reject(&:nil?).count).round
+    end
 end

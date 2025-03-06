@@ -1,4 +1,4 @@
-<div class="d-flex flex-column justify-content-between" style="height: calc(100vh - 80px);" data-controller="active-button">
+<div class="d-flex flex-column justify-content-between" style="height: calc(100vh - 90vh);" data-controller="active-button">
   <div class="d-flex flex-column align-items-start pt-3">
     <%# <h3><%= tender.title</h3> %>
     <div class="d-flex align-items-center border-top border-bottom w-100 py-3 ms-1 ">
@@ -12,22 +12,9 @@
       <%= render 'tenders/spq_index_links', tender: tender %>
     </div>
   </div>
-  <div>
+  <div class="overal-score">
     <% if tender.user.tenders_as_bidder.include?(tender) %>
-          <%= link_to "View Submission", submission_path(tender.user.submissions.find_by(tender: tender)), class: "btn btn-primary mb-1 w-100 j-button" %>
-    <% else %>
-      <%= simple_form_for [tender, Submission.new] do |f| %>
-        <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100 j-button" %>
-      <% end %>
-    <% end %>
-    <!--
-    <%= simple_form_for tender do |f| %>
-      <%= f.input_field :published, as: :hidden, value: true %>
-      <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100 j-button" %>
-    <% end %> -->
-    <%= simple_form_for tender do |f| %>
-      <%= f.input_field :published, as: :hidden, value: false %>
-      <%= f.submit 'Save Draft', class: "btn btn-outline-secondary mb-1 w-100 j-button" %>
+      <%= render "shared/score", score: tender.submissions.find_by(user: tender.user)&.average_score %>
     <% end %>
   </div>
 </div>

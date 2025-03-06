@@ -46,9 +46,13 @@
   border: 1px dashed;
 }
 
+.form-floating > .tender-title {
+  height: 80px;
+}
+
 .tender-title {
   box-sizing: border-box;
-  size: 60px;
+  size: 120px;
   padding-block: 30px;
   font-size: 30px;
   font-weight: 500;
