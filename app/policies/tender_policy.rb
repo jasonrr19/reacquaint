@@ -22,7 +22,7 @@ class TenderPolicy < ApplicationPolicy
   end
 
   def create?
-    user.owner
+    return true
   end
 
   def update?
