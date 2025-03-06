@@ -288,6 +288,51 @@ class OpenaiService
   end
 
   # Submission & Compatible Responses (New)
+  def cr_answer
+    concat_cr = ""
+    @compatible_response.related_responses.each do |rel_res|
+      input = "
+      The following is the previous bid response for #{rel_res.selected_prerequisite.prerequisite.name} from the #{rel_res.submission.tender.title} project:
+
+      #{rel_res.notes}
+      "
+      concat_cr += input
+    end
+    return if concat_cr.blank?
+    instructions = <<~INSTRUCTIONS
+      Task:
+        	1.	Read the existing compatible response draft
+	          •	Do not alter, reformat, or change anything while reading.
+	        2.	Read the previous related compatible responses from past projects/submissions
+	          •	Do not alter, reformat, or change anything while reading.
+	        3.	Rewrite the existing compatible response draft based on the related compatible responses from past projects/submissions
+            •	Incorporate previous compatible responses as past accomplishments, ensuring they are seamlessly integrated into the revised draft.
+            •	Maintain consistency in tone, structure, and terminology with the existing draft.
+            •	Ensure that past activities are described in a way that aligns with the current response’s context and intent.
+            •	Anonymize all project names, focusing on describing the project’s nature, scope, and outcomes instead of its actual name.
+            •	Retain clarity, accuracy, and conciseness while ensuring all relevant past contributions are appropriately reflected.
+            •	No headings or formatting such as bullet points. Only plain text and separation into paragraphs if needed.
+
+      Source Material:
+        •	The existing compatible response draft is:
+        #{@compatible_response.notes}
+
+        •	The previous related compatible responses are:
+        #{concat_cr}
+      INSTRUCTIONS
+
+      chatgpt_response = @client.chat(parameters: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "user", content: bidder_persona},
+          { role: "user", content: instructions}
+        ]
+      })
+      @result = chatgpt_response["choices"][0]["message"]["content"]
+      renderer = Redcarpet::Render::HTML.new
+      markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+      markdown.render(@result)
+  end
 
   # Users & Employees
   def check_compatible
