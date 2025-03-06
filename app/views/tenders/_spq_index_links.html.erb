@@ -1,5 +1,5 @@
 <div id="spq-index-links">
-  <% tender.selected_prerequisites.order(id: :desc).each_with_index do |selected_prerequisite, index| %>
+  <% tender.selected_prerequisites.order(prerequisite_id: :asc).each_with_index do |selected_prerequisite, index| %>
     <%# if policy(selected_prerequisite).edit? %>
     <div class="d-flex align-items-center ms-1 py-2">
       <i style="width: 20px;" data-active-button-target="icon" class="<%= selected_prerequisite.prerequisite.fa_class %> me-2 text-secondary text-center"></i>
@@ -16,7 +16,7 @@
       </div>
     <% end %>
   <% end  %>
-  <% Prerequisite.where.not(id: tender.prerequisites.order(id: :desc)).each_with_index do |prerequisite, index| %>
+  <% Prerequisite.where.not(id: tender.prerequisites.order(id: :desc)).order(id: :asc).each_with_index do |prerequisite, index| %>
     <div class="d-flex align-items-center ms-1 py-2">
       <i style="width: 20px;" class="fa-solid fa-spinner fa-spin me-2 text-secondary text-center"></i>
       <%= link_to prerequisite.name.titleize, '#',
