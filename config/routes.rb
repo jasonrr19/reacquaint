@@ -31,4 +31,8 @@ Rails.application.routes.draw do
     resources :submissions, only: [:index]
   end
 
+  authenticate :user, ->(u) { u.admin? } do
+    mount MissionControl::Jobs::Engine, at: "/jobs"
+  end
+
 end
