@@ -4,16 +4,18 @@
       <i class="fa-solid fa-cube fa-2xl ms-4 mt-5"></i>
     </div>
     <div class="p-3" >
-      <%= link_to submission_path(submission), class: "text-decoration-none h-100" do %>
-        <h3 class="text-black fw-bold m-0"><%= submission.tender.title %></h3>
-        <h6 class="m-0 text-black">Client Name <br>
-          Created: <br>
-          Deadline:</h6>
+      <%= link_to submission_path(submission), class: "text-decoration-none h-100 text-black" do %>
+        <h3 class="text-black fw-bold m-2"><%= submission.tender.title %></h3>
+        <h6 class="m-2"><%= submission.tender.user.company_name %></h6>
+        <div class="d-flex align-items-center ">
+          <i class="fa-solid fa-chart-line fa-lg"></i>
+          <p class="m-2 text-center fs-6"><%= submission.average_score %>%</p>
+        </div>
       <% end %>
     </div>
   </div>
   <div>
-    <p class="ms-4 ">Low compatibility</p>
+    <p class="ms-4 "></p>
   </div>
   <!-- PDF code-->
   <div class="ms-4">
