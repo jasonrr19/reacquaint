@@ -13,13 +13,18 @@
     </div>
   </div>
   <div>
-    <%= simple_form_for [tender, Submission.new] do |f| %>
-      <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100 j-button" %>
+    <% if tender.user.tenders_as_bidder.include?(tender) %>
+          <%= link_to "View Submission", submission_path(tender.user.submissions.find_by(tender: tender)), class: "btn btn-primary mb-1 w-100 j-button" %>
+    <% else %>
+      <%= simple_form_for [tender, Submission.new] do |f| %>
+        <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100 j-button" %>
+      <% end %>
     <% end %>
+    <!--
     <%= simple_form_for tender do |f| %>
       <%= f.input_field :published, as: :hidden, value: true %>
       <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100 j-button" %>
-    <% end %>
+    <% end %> -->
     <%= simple_form_for tender do |f| %>
       <%= f.input_field :published, as: :hidden, value: false %>
       <%= f.submit 'Save Draft', class: "btn btn-outline-secondary mb-1 w-100 j-button" %>
