@@ -87,3 +87,5 @@ gem "pdf-reader"
 gem "solid_cable"
 
 gem "solid_queue"
+
+gem "mission_control-jobs"

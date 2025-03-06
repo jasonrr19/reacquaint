@@ -47,6 +47,7 @@ owner = User.new(
   email: "Junlimited@gmail.com",
   address: "1645 Hacienda Street, Las Vegas, Nevada",
   owner: true,
+  admin: true,
   password: "123123"
 )
 
@@ -56,6 +57,7 @@ bidder = User.new(
   email: "bidder@gmail.com",
   address: "Bidder Lane, Bidderburg",
   owner: false,
+  admin: true,
   password: "123123"
 )
 bidder.save!
