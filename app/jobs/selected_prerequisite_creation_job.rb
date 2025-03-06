@@ -3,7 +3,7 @@ require "pdf-reader"
 class SelectedPrerequisiteCreationJob < ApplicationJob
   queue_as :default
 
-  def perform(client, pdf_text, tender, prerequisite, owner_persona)
+  def perform(pdf_text, tender, prerequisite, owner_persona)
     client = OpenAI::Client.new
     instructions = <<~INSTRUCTIONS
       Analyze the provided PDF text and extract only the content directly relevant to the given prerequisite title: #{prerequisite.name}.

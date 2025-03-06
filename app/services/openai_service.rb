@@ -138,6 +138,7 @@ class OpenaiService
     Prerequisite.find_each do |prerequisite|
       SelectedPrerequisiteCreationJob.perform_later(pdf_text, @tender, prerequisite, owner_persona)
     end
+    SynopsisCreationJob.perform_later(@tender)
   end
 
   def tender_brief
