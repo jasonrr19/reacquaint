@@ -1,5 +1,12 @@
 <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
   <div class="cards">
+    <% if params[:query].blank? %>
+      <%= link_to new_tender_path, class: 'text-decoration-none' do %>
+        <div class="card-pick bg-secondary-subtle">
+          <h5 class="text-center vertical-center fw-semibold">+ Create New Report</h5>
+        </div>
+      <% end %>
+    <% end %>
     <% @submissions.where(published: false).reverse.each do |submission|%>
       <div class="card-pick">
         <%= render 'bidder/submissions/submission', submission: submission %>

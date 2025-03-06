@@ -10,7 +10,7 @@ hr {
 .card-pick {
   display: flex;
   flex-direction: column;
-  height: 175px;
+  height: 255px;
   width: 425px;
   border-radius: .5rem 2rem;
   background-color: white;
@@ -45,11 +45,10 @@ hr {
 .card-pick:hover {
   transition: 0.2s ease-out;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
-    border-color: rgba(24, 24, 27, 0.08);
-
+  border-color: rgba(24, 24, 27, 0.08);
   outline: 3px solid rgba(116, 31, 162, 0.589);
+
 }
 .vertical-center {
   padding-top: 75px;
-
 }

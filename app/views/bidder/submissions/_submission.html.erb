@@ -1,6 +1,27 @@
-<%= link_to submission_path(submission), class: "text-decoration-none h-100" do %>
-  <div class="text-black p-4" >
-    <h5><%= submission.tender.title %></h5>
-    <h6><%= submission.tender.synopsis %></h6>
+<div class="">
+  <div class="d-flex ">
+    <div>
+      <i class="fa-solid fa-cube fa-2xl ms-4 mt-5"></i>
+    </div>
+    <div class="p-3" >
+      <%= link_to submission_path(submission), class: "text-decoration-none h-100" do %>
+        <h3 class="text-black fw-bold m-0"><%= submission.tender.title %></h3>
+        <h6 class="m-0 text-black">Client Name <br>
+          Created: <br>
+          Deadline:</h6>
+      <% end %>
+    </div>
   </div>
-<% end %>
+  <div>
+    <p class="ms-4 ">Low compatibility</p>
+  </div>
+  <!-- PDF code-->
+  <div class="ms-4">
+    <h6>View Requirements</h6>
+    <% if submission.tender.document.attached? %>
+      <%= link_to cloudinary_url(submission.tender.document.key, resource_type: 'image'), class: 'pdf-icon fa-lg text-decoration-none', target: '_blank' do %>
+        <h6 class="text-black"><i class="fa-solid fa-file-pdf"></i>View PDF</h6>
+      <% end %>
+    <% end %>
+  </div>
+</div>
