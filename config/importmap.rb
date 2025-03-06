@@ -11,3 +11,5 @@ pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "typed.js" # @2.1.0
 pin "@stimulus-components/auto-submit", to: "@stimulus-components--auto-submit.js" # @6.0.0
+pin "@kanety/stimulus-dropzone", to: "@kanety--stimulus-dropzone.js" # @1.1.0
+pin "@kanety/stimulus-static-actions", to: "@kanety--stimulus-static-actions.js" # @1.1.0
