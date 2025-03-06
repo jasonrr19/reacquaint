@@ -13,6 +13,9 @@
     </div>
   </div>
   <div>
+    <%= simple_form_for [tender, Submission.new] do |f| %>
+      <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100" %>
+    <% end %>
     <%= simple_form_for tender do |f| %>
       <%= f.input_field :published, as: :hidden, value: true %>
       <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100" %>
