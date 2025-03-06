@@ -12,10 +12,9 @@ hr {
   flex-direction: column;
   height: 175px;
   width: 425px;
-  border-radius: 16px;
+  border-radius: .5rem 2rem;
   background-color: white;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
-  // border: 1px solid $light-gray;
   cursor: pointer;
   border-color: rgba(24, 24, 27, 0.08);
   overflow: hidden;
@@ -45,7 +44,6 @@ hr {
 }
 .card-pick:hover {
   transition: 0.2s ease-out;
-  // transform: translateY(-8px);
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.1);
     border-color: rgba(24, 24, 27, 0.08);
 

@@ -8,7 +8,13 @@
 <%= link_to tender_path(tender), class: "text-decoration-none" do %>
   <div class="">
     <div class="text-black p-4">
-      <h5><%= tender.title %></h5>
+      <div class="d-flex">
+        <i class="fa-solid fa-cube fa-xl"></i>
+        <h5><%= tender.title %></h5>
+      </div>
+      <h6>Client Name: <br>
+        Created: <br>
+        Deadline:</h6>
       <%# <h6 class="Synopsis-h6"><%= tender.synopsis %></h6>
   </div>
   <!--  <div class="submission-grid flex-fill bg-success" style="text-decoration: none;">
