@@ -6,6 +6,7 @@ class OpenaiService
     @selected_prerequisite = attrs[:selected_prerequisite]
     @compatible_response = attrs[:compatible_response]
     @tender = attrs[:tender]
+    @employee = attrs[:employee]
     @client = OpenAI::Client.new
   end
 
@@ -301,5 +302,50 @@ class OpenaiService
 
   # Submission & Compatible Responses (New)
 
+  # Users & Employees
+  def check_compatible
+    employee = @employee
+    prerequisites = ""
+    Prerequisite.all.each do |prereq|
+      prerequisites += "#{prereq.name}, "
+    end
+    instructions = <<~INSTRUCTIONS
+      Task:
+        1.	You will use the Source Material below to report the relevance of an employee in a construction project for future tender bids.
+        •	Carefully read the job title, job description, and experience of the employee from the Source Material.
+        2.	Based on the job title, job description, and experience of the employee from the Source Material, draft a relevance write-up
+        •	The relevance write-up should clearly describe the role, skillset, and experience of the employee from a bidding point of view.
+        •	The relevance write-up must also describe the kinds of projects (typologies, industry, sector, scale) that the employee is suited for.
+        •	The relevance write-up must clearly state which prerequisite the employee is best suited for, choosing from one of the prerequisites in the Source Material.
+        •	The relevance write-up must have no formatting or headings of any kind and should be plain text in paragraph form.
+        •	The relevance write-up should not be more than 200 words.
+
+      Source Material:
+        •	The job title of the employee is:
+        #{employee.job_title}
+
+        •	The job description of the employee is:
+        #{employee.job_description}
+
+        •	The experience of the employee is:
+        #{employee.experience}
+
+        •	The prerequisites are:
+        #{prerequisites}
+
+      INSTRUCTIONS
+
+      chatgpt_response = @client.chat(parameters: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "user", content: bidder_persona},
+          { role: "user", content: instructions}
+        ]
+      })
+      @result = chatgpt_response["choices"][0]["message"]["content"]
+      renderer = Redcarpet::Render::HTML.new
+      markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+      markdown.render(@result)
+  end
 
 end

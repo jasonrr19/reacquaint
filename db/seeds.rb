@@ -146,18 +146,15 @@ end
 
 # Create a set of employees for bidder user
 bidder = User.where(email: "bidder@gmail.com").first
-Employee.new(
-  name: "Sam Patel",
-  job_title: "Health and Safety Manager",
-  job_description: <<~JD
+jd = <<~JD
   The Health & Safety Manager ensures workplace safety and compliance with Indian regulations, including the Factories Act, 1948, and relevant state laws.
   Responsibilities include developing and implementing health and safety policies, conducting risk assessments, training employees on safety procedures, investigating incidents, and maintaining records.
   They work closely with management to foster a strong safety culture and ensure adherence to industry standards such as BIS and ISO.
   The role involves identifying hazards, recommending corrective actions, and overseeing emergency response plans.
   Strong knowledge of Indian labour laws, excellent communication skills, and experience in health and safety management are essential.
   JD
-  ,
-  experience: <<~XP
+
+xp = <<~XP
   Sam Patel has over 10 years of experience in health and safety management across various industries, including manufacturing, construction, and logistics. He has a deep understanding of Indian safety regulations,
   including the Factories Act, 1948, the Occupational Safety, Health and Working Conditions Code, 2020, and relevant BIS and ISO standards. Throughout his career, Sam has successfully implemented health and safety policies,
   conducted risk assessments, and trained employees to foster a strong safety culture.
@@ -179,7 +176,12 @@ Employee.new(
   With a proactive mindset and a commitment to continuous improvement, Sam remains dedicated to enhancing workplace safety standards. His experience across different industries, coupled with his knowledge of Indian safety laws and best practices, makes him a valuable asset in any organisation
   striving to prioritise health and safety in the workplace.
   XP
-  ,
+
+employee = Employee.new(
+  name: "Sam Patel",
+  job_title: "Health and Safety Manager",
+  job_description: jd,
+  experience: xp,
   user: bidder
 )
 employee.save!
@@ -207,7 +209,7 @@ User.where(owner: false).each do |user|
     compatible_employee = CompatibleEmployee.new(
       why_compatible: "He has 20 years of experience",
       compatible_response: compatible_response,
-      employee: user.employees.sample
+      employee: employee
     )
     compatible_employee.save!
   end
