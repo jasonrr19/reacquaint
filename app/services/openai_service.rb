@@ -100,7 +100,7 @@ class OpenaiService
     chatgpt_response = @client.chat(parameters: {
       model: "gpt-4o-mini",
       messages: [
-        { role: "user", content: owner_persona},
+        { role: "user", content: bidder_persona},
         { role: "user", content: instructions}
       ]
     })
@@ -150,6 +150,7 @@ class OpenaiService
       SelectedPrerequisiteCreationJob.perform_later(pdf_text, @tender, prerequisite, owner_persona)
     end
     SynopsisCreationJob.perform_later(@tender)
+    SubmissionCreationJob.perform_later(@tender)
   end
 
   def tender_brief

@@ -7,5 +7,6 @@ class CrCreationJob < ApplicationJob
     cr.notes = openai_service.write
     cr.save
     # To do: broadcast every time the CR is written by GPT
+    sleep(4)
   end
 end

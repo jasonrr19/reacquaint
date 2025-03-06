@@ -34,5 +34,6 @@ class SelectedPrerequisiteCreationJob < ApplicationJob
       partial: "tenders/spq_index_links",
       locals: { tender: tender }
     )
+    sleep(2)
   end
 end
