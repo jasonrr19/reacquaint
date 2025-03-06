@@ -56,22 +56,33 @@ class OpenaiService
   # Tender & Selected Prerequisites (Original)
   def analyse
     instructions = <<~INSTRUCTIONS
-    You are analyzing a requirement description from a tender specifications document. This description is typically copy-pasted from a boilerplate template
-    and may not accurately reflect the specific needs of the project. Your goal is to assess and enhance its clarity, alignment with industry best practices,
-    and relevance to the project’s objectives.
+    Here’s the rewritten prompt from a bidder’s perspective:
+
+    Bidder’s Requirement Analysis Guide
+
+    You are analyzing a requirement description from a tender specifications document from a bidder’s perspective.
+    This description is typically copy-pasted from a boilerplate template and may contain ambiguities, unrealistic expectations, or
+    gaps in critical details. Your goal is to assess the requirement to identify key considerations for a bidder, including risks, challenges,
+    important insights, resource needs, and other relevant factors.
 
     Analysis Steps:
-    1. Compare the inputted requirement description with:
-      •	The requirement title (to ensure adherence to industry best practices for that type of requirement).
-      •	The project synopsis (to evaluate alignment with the project’s objectives and intended outcomes).
-	  2. Identify gaps and areas for improvement based on:
-      •	Industry standards and best practices relevant to the requirement title.
-      •	The specific context and goals outlined in the project synopsis.
-	  3.Draft a concise report (max. 250 words) structured with bullet points, spacings, and subheadings.
-      •	Highlight missing details, ambiguities, or inconsistencies.
-      •	Suggest specific improvements to enhance clarity, completeness, and relevance.
+      1.	Contextual Review:
+      •	Compare the requirement description against:
+      •	The requirement title (to understand its intent and standard industry expectations).
+      •	The project synopsis (to assess alignment with the overall objectives and scope).
+      2.	Bidder’s Considerations:
+      •	Identify potential risks, ambiguities, and unrealistic expectations.
+      •	Highlight operational, financial, or technical challenges bidders may face.
+      •	Note any critical missing information that could impact bid preparation.
+      •	Identify key resources (staff, materials, technology, certifications, etc.) that bidders should anticipate needing.
+      •	Point out any aspects requiring clarification through bidder queries.
+      3.	Concise Report (max. 250 words):
+      •	Use bullet points, spacing, and subheadings for readability.
+      •	Summarize key risks and challenges.
+      •	Highlight critical insights and strategic considerations for bidders.
+      •	List recommended questions or clarifications to seek from the issuer.
 
-    Maintain a professional and objective tone while ensuring the recommendations are practical and actionable.
+    Maintain a professional and objective tone while ensuring the analysis is practical, actionable, and directly relevant to bid preparation.
 
     The inputted description is:
 
