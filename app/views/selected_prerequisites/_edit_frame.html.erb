@@ -1,10 +1,5 @@
-<div id="edit-frame-<%=selected_prerequisite.id%>" class="container my-3">
-  <div data-controller="remove-hide">
-    <p data-remove-hide-target="objective" class="d-none"><i class="fa-solid fa-spinner fa-spin"></i> <span data-controller="typed"></span></p>
-    <%= link_to "Rewrite", rewrite_selected_prerequisite_path(selected_prerequisite), class: "btn btn-primary my-3", data: { turbo_method: :patch, action: "click->remove-hide#remove" }, role: "button"   %>
+  <div id="edit-frame-<%=selected_prerequisite.id%>">
+  <div class="prereq-card">
+    <p><%= selected_prerequisite.description %></p>
   </div>
-  <%= simple_form_for selected_prerequisite, data: { controller: 'auto-submit' } do |f| %>
-    <%= f.rich_text_area :description, data: { action: 'keyup->auto-submit#submit' } %>
-    <%= f.input :approved %>
-  <% end %>
 </div>

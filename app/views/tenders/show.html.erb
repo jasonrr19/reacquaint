@@ -2,17 +2,24 @@
   <%# Progress Bar %>
   <%= render "tenders/progress_bar", tender: @tender %>
   <%# Selected Prereq Index Sidebar and Edit Frame%>
+  <h5><%= @tender.user.company_name %></h5>
+  <h3 class="fs-2"><%= @tender.title %></h3>
   <div class="row">
     <%# Selected Prereq Index Sidebar%>
-    <div class="col-4 vh-75 border border-dark">
+    <div class="col-4 vh-75 border border-start-0 border-end-0 border-dark">
       <%= render "spq_index", tender: @tender %>
     </div>
     <%# Selected Prereq Edit Frame%>
-    <div class="col-8 vh-100 border border-dark overflow-scroll">
+    <div class="col-8 vh-100 border border-end-0 border-dark overflow-scroll">
       <%= turbo_frame_tag :edit_prereq do %>
         <div class="container my-3">
           <h3> Project Synopsis </h3>
-          <%= render "tenders/synopsis", tender: @tender %>
+          </div>
+          <div class="tab-pane fade py-3 show active" id="draft-tab-pane" role="tabpanel" aria-labelledby="draft-tab" tabindex="0">
+          <div class="prereq-card">
+            <%= render "tenders/synopsis", tender: @tender %>
+          </div>
+          </div>
         </div>
       <% end %>
     </div>

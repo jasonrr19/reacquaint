@@ -1,7 +1,7 @@
 <div id="p-bar">
   <div class="d-flex">
-    <p class="mx-2"><%= tender.completed_percent.round(0) %>%</p>
-    <div class="progress rounded-pill mb-3 w-100" style="padding:5px; background-color:rgb(228, 231, 233); height: 24px">
+    <p class="mt-4"><%= tender.completed_percent.round(0) %>%</p>
+    <div class="progress rounded-pill m-4 w-100" style="padding:5px; background-color:rgb(228, 231, 233); height: 24px">
       <div class="progress-bar bg-primary rounded-pill"
             role="progressbar"
             style='width: <%= tender.completed_percent %>%;'

@@ -1,6 +1,6 @@
 <div class="d-flex flex-column justify-content-between" style="height: calc(100vh - 80px);" data-controller="active-button">
   <div class="d-flex flex-column align-items-start pt-3">
-    <h3><%= tender.title %></h3>
+    <%# <h3><%= tender.title</h3> %>
     <div class="d-flex align-items-center border-top border-bottom w-100 py-3 ms-1 ">
       <i data-active-button-target="icon" class="fa-regular fa-file-lines me-2 text-primary"></i>
       <%= link_to "Tender Overview", tender_path(tender), class: "fw-normal text-decoration-none text-secondary w-100",
@@ -14,15 +14,15 @@
   </div>
   <div>
     <%= simple_form_for [tender, Submission.new] do |f| %>
-      <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100" %>
+      <%= f.submit 'Generate Submission', class: "btn btn-primary mb-1 w-100 j-button" %>
     <% end %>
     <%= simple_form_for tender do |f| %>
       <%= f.input_field :published, as: :hidden, value: true %>
-      <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100" %>
+      <%= f.submit 'Publish', class: "btn btn-primary mb-1 w-100 j-button" %>
     <% end %>
     <%= simple_form_for tender do |f| %>
       <%= f.input_field :published, as: :hidden, value: false %>
-      <%= f.submit 'Save Draft', class: "btn btn-outline-secondary mb-1 w-100" %>
+      <%= f.submit 'Save Draft', class: "btn btn-outline-secondary mb-1 w-100 j-button" %>
     <% end %>
   </div>
 </div>
