@@ -88,50 +88,83 @@ end
 puts "#{User.count} users created..."
 
 puts "creating tenders..."
-[true, false].each do |boolean|
-  User.where(owner: true).each do |user|
-    tender = Tender.new(
-      user: user,
-      title: Faker::Address.community,
-      synopsis: "We invite experienced contractors to submit bids for the renovation of this project. The scope of work includes structural repairs, interior and exterior upgrades, and improvements to safety and accessibility features.",
-      published: boolean
-    )
-    tender.save!
-    Prerequisite.all.shuffle.first(4).each do |prerequisite|
-      selected_prerequisite = SelectedPrerequisite.new(
-        tender: tender,
-        prerequisite: prerequisite,
-        description: "Contractors must demonstrate relevant qualifications and experience, and ensure that environmental considerations are integrated into the project to minimize impact. Proposals should reflect these priorities to ensure the successful completion of the project within established guidelines.",
-        approved: boolean
-      )
-      selected_prerequisite.save!
-    end
-  end
-end
-puts "#{Tender.count} tenders created..."
+# [true, false].each do |boolean|
+#   User.where(owner: true).each do |user|
+#     tender = Tender.new(
+#       user: user,
+#       title: Faker::Address.community,
+#       synopsis: "We invite experienced contractors to submit bids for the renovation of this project. The scope of work includes structural repairs, interior and exterior upgrades, and improvements to safety and accessibility features.",
+#       published: boolean
+#     )
+#     tender.save!
+#     Prerequisite.all.shuffle.first(4).each do |prerequisite|
+#       selected_prerequisite = SelectedPrerequisite.new(
+#         tender: tender,
+#         prerequisite: prerequisite,
+#         description: "Contractors must demonstrate relevant qualifications and experience, and ensure that environmental considerations are integrated into the project to minimize impact. Proposals should reflect these priorities to ensure the successful completion of the project within established guidelines.",
+#         approved: boolean
+#       )
+#       selected_prerequisite.save!
+#     end
+#   end
+# end
+# puts "#{Tender.count} tenders created..."
 
-puts "creating submissions..."
+tender1 = Tender.new(
+  user: bidder,
+  title: "Construction of Flyover at chainage Km 165.020 (Pastikudi) on NH-26",
+  published: true
+)
+file = File.open(File.join(Rails.root,'app/assets/images/patikudi_flyover.pdf'))
+tender1.document.attach(io: file, filename: "tender.pdf", content_type: "application/pdf")
+tender1.save!
+
+sleep(30)
+
+tender2 = Tender.new(
+  user: bidder,
+  title: "Reconstruction of Damaged Bridges on NH-326",
+  published: true
+)
+file = File.open(File.join(Rails.root,'app/assets/images/nh_326_reconstruction.pdf'))
+tender2.document.attach(io: file, filename: "tender.pdf", content_type: "application/pdf")
+tender2.save!
+
+sleep(30)
+
+tender3 = Tender.new(
+  user: bidder,
+  title: "Design and Construction of Ross Park Change Rooms Building.",
+  published: true
+)
+file = File.open(File.join(Rails.root,'app/assets/images/alice_springs.pdf'))
+tender3.document.attach(io: file, filename: "tender.pdf", content_type: "application/pdf")
+tender3.save!
+
+sleep(30)
+
+# puts "creating submissions..."
 
 # simulating a completed bid process for contractor right cool.
-User.where(owner: false).each do |user|
-  tender = Tender.all.sample
-  submission = Submission.new(
-    tender: tender,
-    user: user,
-    published: true,
-    shortlisted: true
-  )
-  submission.save!
-  tender.selected_prerequisites.each do |prereq|
-    compatible_response = CompatibleResponse.new(
-      selected_prerequisite: prereq,
-      submission: submission,
-      notes: "We are pleased to submit our proposal for the renovation project, fully aligning with the specified prerequisites. Our team prioritizes health and safety by implementing rigorous protocols and training.",
-      score: rand(1..100)
-    )
-    compatible_response.save!
-  end
-end
+# User.where(owner: false).each do |user|
+#   tender = Tender.all.sample
+#   submission = Submission.new(
+#     tender: tender,
+#     user: user,
+#     published: true,
+#     shortlisted: true
+#   )
+#   submission.save!
+#   tender.selected_prerequisites.each do |prereq|
+#     compatible_response = CompatibleResponse.new(
+#       selected_prerequisite: prereq,
+#       submission: submission,
+#       notes: "We are pleased to submit our proposal for the renovation project, fully aligning with the specified prerequisites. Our team prioritizes health and safety by implementing rigorous protocols and training.",
+#       score: rand(1..100)
+#     )
+#     compatible_response.save!
+#   end
+# end
 # User.where(owner: false).each do |user|
 #   # Create a set of employees for each bidder
 #   5.times do |i|  # You can adjust the number of employees per bidder here
@@ -148,7 +181,7 @@ end
 
 # Create a set of employees for bidder user
 bidder = User.where(email: "bidder@gmail.com").first
-jd = <<~JD
+jd_sp = <<~JD
   The Health & Safety Manager ensures workplace safety and compliance with Indian regulations, including the Factories Act, 1948, and relevant state laws.
   Responsibilities include developing and implementing health and safety policies, conducting risk assessments, training employees on safety procedures, investigating incidents, and maintaining records.
   They work closely with management to foster a strong safety culture and ensure adherence to industry standards such as BIS and ISO.
@@ -156,7 +189,7 @@ jd = <<~JD
   Strong knowledge of Indian labour laws, excellent communication skills, and experience in health and safety management are essential.
   JD
 
-xp = <<~XP
+xp_sp = <<~XP
   Sam Patel has over 10 years of experience in health and safety management across various industries, including manufacturing, construction, and logistics. He has a deep understanding of Indian safety regulations,
   including the Factories Act, 1948, the Occupational Safety, Health and Working Conditions Code, 2020, and relevant BIS and ISO standards. Throughout his career, Sam has successfully implemented health and safety policies,
   conducted risk assessments, and trained employees to foster a strong safety culture.
@@ -182,8 +215,8 @@ xp = <<~XP
 employee = Employee.new(
   name: "Sam Patel",
   job_title: "Health and Safety Manager",
-  job_description: jd,
-  experience: xp,
+  job_description: jd_sp,
+  experience: xp_sp,
   user: bidder
 )
 employee.save!
@@ -192,36 +225,30 @@ puts "Created Sam Patel"
 
 
 # simulating a bid process that just started for a contractor right cool.
-User.where(owner: false).each do |user|
-  tender = Tender.where.not(id: user.tenders_as_bidder).sample
-  submission = Submission.new(
-    tender: tender,
-    user: user,
-    published: false,
-    shortlisted: false
-  )
-  submission.save!
-  tender.selected_prerequisites.each do |prereq|
-    compatible_response = CompatibleResponse.new(
-      selected_prerequisite: prereq,
-      submission: submission
-    )
-    compatible_response.save!
-    user.employees.sample(3)
-    compatible_employee = CompatibleEmployee.new(
-      why_compatible: "He has 20 years of experience",
-      compatible_response: compatible_response,
-      employee: employee
-    )
-    compatible_employee.save!
-  end
-end
-
-puts "submissions created..."
-
-puts "creating selected prerequisites..."
-
-puts "selected prerequisites created..."
+# User.where(owner: false).each do |user|
+#   tender = Tender.where.not(id: user.tenders_as_bidder).sample
+#   submission = Submission.new(
+#     tender: tender,
+#     user: user,
+#     published: false,
+#     shortlisted: false
+#   )
+#   submission.save!
+#   tender.selected_prerequisites.each do |prereq|
+#     compatible_response = CompatibleResponse.new(
+#       selected_prerequisite: prereq,
+#       submission: submission
+#     )
+#     compatible_response.save!
+#     user.employees.sample(3)
+#     compatible_employee = CompatibleEmployee.new(
+#       why_compatible: "He has 20 years of experience",
+#       compatible_response: compatible_response,
+#       employee: employee
+#     )
+#     compatible_employee.save!
+#   end
+# end
 
 puts "created #{User.count}users, #{Tender.count}tenders, #{Submission.count}submissions, #{SelectedPrerequisite.count}selected prerequisites, and #{CompatibleResponse.count}compatible responses!"
 puts "created  #{Employee.count}employees,  #{CompatibleEmployee.count} compatible employees"
