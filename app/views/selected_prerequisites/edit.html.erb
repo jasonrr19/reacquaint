@@ -23,7 +23,7 @@
     <div class="tab-pane fade" id="analysis-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
       <%= render "selected_prerequisites/analysis_section", selected_prerequisite: @selected_prerequisite %>
     </div>
-      <%= render "selected_prerequisites/team", selected_prerequisite: @selected_prerequisite %>
+      <%= render "selected_prerequisites/team", compatible_response: @selected_prerequisite.tender.user.compatible_responses.find_by(selected_prerequisite: @selected_prerequisite) %>
       <%= render "compatible_responses/show", compatible_response: @selected_prerequisite.tender.user.compatible_responses.find_by(selected_prerequisite: @selected_prerequisite) %>
   </div>
 <% end %>
