@@ -180,7 +180,7 @@ class OpenaiService
         1.	Review the Tender Requirements
         •	Carefully read the consolidated descriptions of all prerequisites and requirements provided in the tender document.
         2.	Summarize Key Information
-        •	Create a one-page executive summary (tender brief) that highlights essential details.
+        •	Create a one-page executive summary of no less than 350 words (tender brief) that highlights essential details.
         •	Structure the summary into the following sections:
         •	Requirements: Core eligibility criteria and mandatory conditions.
         •	Key Points & Considerations: Important aspects, unique conditions, or critical evaluation criteria.
