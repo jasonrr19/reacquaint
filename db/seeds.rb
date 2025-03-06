@@ -88,50 +88,59 @@ end
 puts "#{User.count} users created..."
 
 puts "creating tenders..."
-[true, false].each do |boolean|
-  User.where(owner: true).each do |user|
-    tender = Tender.new(
-      user: user,
-      title: Faker::Address.community,
-      synopsis: "We invite experienced contractors to submit bids for the renovation of this project. The scope of work includes structural repairs, interior and exterior upgrades, and improvements to safety and accessibility features.",
-      published: boolean
-    )
-    tender.save!
-    Prerequisite.all.shuffle.first(4).each do |prerequisite|
-      selected_prerequisite = SelectedPrerequisite.new(
-        tender: tender,
-        prerequisite: prerequisite,
-        description: "Contractors must demonstrate relevant qualifications and experience, and ensure that environmental considerations are integrated into the project to minimize impact. Proposals should reflect these priorities to ensure the successful completion of the project within established guidelines.",
-        approved: boolean
-      )
-      selected_prerequisite.save!
-    end
-  end
-end
-puts "#{Tender.count} tenders created..."
+# [true, false].each do |boolean|
+#   User.where(owner: true).each do |user|
+#     tender = Tender.new(
+#       user: user,
+#       title: Faker::Address.community,
+#       synopsis: "We invite experienced contractors to submit bids for the renovation of this project. The scope of work includes structural repairs, interior and exterior upgrades, and improvements to safety and accessibility features.",
+#       published: boolean
+#     )
+#     tender.save!
+#     Prerequisite.all.shuffle.first(4).each do |prerequisite|
+#       selected_prerequisite = SelectedPrerequisite.new(
+#         tender: tender,
+#         prerequisite: prerequisite,
+#         description: "Contractors must demonstrate relevant qualifications and experience, and ensure that environmental considerations are integrated into the project to minimize impact. Proposals should reflect these priorities to ensure the successful completion of the project within established guidelines.",
+#         approved: boolean
+#       )
+#       selected_prerequisite.save!
+#     end
+#   end
+# end
+# puts "#{Tender.count} tenders created..."
 
-puts "creating submissions..."
+tender = Tender.new(
+  user: bidder,
+  title: "Construction of Flyover at chainage Km 165.020 (Pastikudi) on NH-26",
+  published: true
+)
+file = File.open(File.join(Rails.root,'app/assets/images/patikudi_flyover.pdf'))
+tender.document.attach(io: file, filename: "tender.pdf", content_type: "application/pdf")
+tender.save!
+
+# puts "creating submissions..."
 
 # simulating a completed bid process for contractor right cool.
-User.where(owner: false).each do |user|
-  tender = Tender.all.sample
-  submission = Submission.new(
-    tender: tender,
-    user: user,
-    published: true,
-    shortlisted: true
-  )
-  submission.save!
-  tender.selected_prerequisites.each do |prereq|
-    compatible_response = CompatibleResponse.new(
-      selected_prerequisite: prereq,
-      submission: submission,
-      notes: "We are pleased to submit our proposal for the renovation project, fully aligning with the specified prerequisites. Our team prioritizes health and safety by implementing rigorous protocols and training.",
-      score: rand(1..100)
-    )
-    compatible_response.save!
-  end
-end
+# User.where(owner: false).each do |user|
+#   tender = Tender.all.sample
+#   submission = Submission.new(
+#     tender: tender,
+#     user: user,
+#     published: true,
+#     shortlisted: true
+#   )
+#   submission.save!
+#   tender.selected_prerequisites.each do |prereq|
+#     compatible_response = CompatibleResponse.new(
+#       selected_prerequisite: prereq,
+#       submission: submission,
+#       notes: "We are pleased to submit our proposal for the renovation project, fully aligning with the specified prerequisites. Our team prioritizes health and safety by implementing rigorous protocols and training.",
+#       score: rand(1..100)
+#     )
+#     compatible_response.save!
+#   end
+# end
 # User.where(owner: false).each do |user|
 #   # Create a set of employees for each bidder
 #   5.times do |i|  # You can adjust the number of employees per bidder here
@@ -192,30 +201,30 @@ puts "Created Sam Patel"
 
 
 # simulating a bid process that just started for a contractor right cool.
-User.where(owner: false).each do |user|
-  tender = Tender.where.not(id: user.tenders_as_bidder).sample
-  submission = Submission.new(
-    tender: tender,
-    user: user,
-    published: false,
-    shortlisted: false
-  )
-  submission.save!
-  tender.selected_prerequisites.each do |prereq|
-    compatible_response = CompatibleResponse.new(
-      selected_prerequisite: prereq,
-      submission: submission
-    )
-    compatible_response.save!
-    user.employees.sample(3)
-    compatible_employee = CompatibleEmployee.new(
-      why_compatible: "He has 20 years of experience",
-      compatible_response: compatible_response,
-      employee: employee
-    )
-    compatible_employee.save!
-  end
-end
+# User.where(owner: false).each do |user|
+#   tender = Tender.where.not(id: user.tenders_as_bidder).sample
+#   submission = Submission.new(
+#     tender: tender,
+#     user: user,
+#     published: false,
+#     shortlisted: false
+#   )
+#   submission.save!
+#   tender.selected_prerequisites.each do |prereq|
+#     compatible_response = CompatibleResponse.new(
+#       selected_prerequisite: prereq,
+#       submission: submission
+#     )
+#     compatible_response.save!
+#     user.employees.sample(3)
+#     compatible_employee = CompatibleEmployee.new(
+#       why_compatible: "He has 20 years of experience",
+#       compatible_response: compatible_response,
+#       employee: employee
+#     )
+#     compatible_employee.save!
+#   end
+# end
 
 puts "submissions created..."
 

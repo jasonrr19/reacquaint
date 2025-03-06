@@ -12,7 +12,7 @@ class Submission < ApplicationRecord
 
   def create_compatible_responses
     tender.selected_prerequisites.each do |selected_prerequisite|
-      CompatibleResponse.create(submission: self, selected_prerequisite: selected_prerequisite)
+      CrCreationJob.perform_later(selected_prerequisite, self)
     end
   end
 
