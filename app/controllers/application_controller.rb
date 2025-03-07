@@ -14,11 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if current_user.owner?
-      owner_tenders_path
-    else
-      tenders_path
-    end
+      bidder_submissions_path
   end
 
   private
