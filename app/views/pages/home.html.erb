@@ -1,8 +1,62 @@
-<%#
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= image_path 'banner.png' %>
+<!--
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= image_path 'banner.png' %>"
   <div class="container homepage-font">
     <h1>Reacquaint <strong> skills</strong> to <strong>creative people</strong>!</h1>
     <p>Change your life.</p>
     <i class="fa-solid fa-diamond fa-spin fa-5x"></i>
   </div>
 </div>
+-->
+<body>
+  <div class="hero" style="background-image: url('<%= image_path 'background.png' %>">
+    <div class="nav">
+      <i class="fa-solid fa-square fa-spin fa-2xl"></i></i>
+    <% if user_signed_in? %>
+      <button>
+        <%= link_to "My Submissions", bidder_submissions_path, class: "text-white text-decoration-none" %>
+      </button>
+    <% else %>
+      <button type="button">
+        <%= link_to "Login", new_user_session_path, class: "text-decoration-none text-white" %>
+      </button>
+    <% end %>
+  </button>
+</div>
+<div class="content">
+  <small>Welcome to</small>
+  <h1>Reacquaint</h1>
+  <h4>Change your life.</h4>
+  <!-- <button type="button">Change your life.</button> -->
+</div>
+<div class="side-bar">
+  <!-- -->
+  <% if user_signed_in? %>
+    <% if current_user.owner %>
+    <% else %>
+    <% end %>
+    <%= image_tag "menu.png", class: "menu", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+    <% if current_user.owner %>
+      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
+      </div>
+    <% else %>
+      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
+      </div>
+    <% end %>
+  <% else %>
+  </li>
+<% end %>
+<!-- -->
+<!-- <%= image_tag 'menu.png', class: 'menu' %> -->
+<div class="social-links">
+  <%= image_tag 'fb.png', class: 'img-resize'%>
+  <%= image_tag 'ig.png', class: 'img-resize' %>
+</div>
+<div class="useful-links">
+  <%= image_tag 'share.png', class: 'img-resize' %>
+  <%= image_tag 'info.png', class: 'img-resize' %>
+</div>
+</div>
+</div>
+</body>
