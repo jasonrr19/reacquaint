@@ -2,13 +2,13 @@
   <div class="cards">
     <% if params[:query].blank? %>
       <%= link_to new_tender_path, class: 'text-decoration-none' do %>
-        <div class="card-pick bg-secondary-subtle">
-          <h5 class="text-center vertical-center fw-semibold">+ Create New Report</h5>
+        <div class="card-pick bg-secondary-subtle d-flex align-items-center justify-content-center">
+          <h5 class="text-center vertical-center fw-semibold p-0">+ Create New Report</h5>
         </div>
       <% end %>
     <% end %>
     <% @submissions.where(published: false).reverse.each do |submission|%>
-      <div class="card-pick">
+      <div class="card-pick p-3">
         <%= render 'bidder/submissions/submission', submission: submission %>
       </div>
     <% end %>
