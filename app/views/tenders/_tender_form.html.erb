@@ -2,11 +2,11 @@
   <div class="form-floating pb-3">
     <%= f.input_field :title, class: 'form-control tender-title', id: 'floatingInput tender_title' ,placeholder: 'Project Title' %>
     <%= f.label :title, "Project Title" %>
-    <div class="file">
-      <label class="upload-file" data-controller="dropzone">
-        <i class="fa-solid fa-cloud-arrow-up fa-xl icon-center"></i>
-        <p>Import File</p>
-        <%= f.input :document, as: :file, label: false, input_html: { class:"d-none" } %>
+    <div class="file" data-controller="file-name">
+      <label class="upload-file" data-controller="dropzone" >
+        <i class="fa-solid fa-cloud-arrow-up fa-xl icon-center" data-file-name-target="icon"></i>
+        <p data-file-name-target="text">Import File</p>
+        <%= f.input :document, as: :file, label: false, input_html: { class:"d-none", id: "uploadPDF", data: { action: "change->file-name#filePreview" } } %>
       </label>
     </div>
     <div data-controller="spin">
