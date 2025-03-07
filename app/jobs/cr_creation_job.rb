@@ -10,8 +10,8 @@ class CrCreationJob < ApplicationJob
     sleep(4)
     cr.notes = openai_service.cr_answer
     cr.save
+    cr.assign_employees
     # To do: broadcast every time the CR is written by GPT
-    sleep(4)
     Turbo::StreamsChannel.broadcast_replace_to(
       "tender_#{submission.tender.id}_links",
       target: "team-tab",
@@ -25,6 +25,9 @@ class CrCreationJob < ApplicationJob
       partial: "selected_prerequisites/team",
       locals: { compatible_response: cr }
     )
+    sleep(2)
+    cr.notes = openai_service.cr_employee
+    cr.save
     Turbo::StreamsChannel.broadcast_replace_to(
       "tender_#{submission.tender.id}_links",
       target: "response-tab",
