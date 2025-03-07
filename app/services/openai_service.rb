@@ -266,7 +266,7 @@ class OpenaiService
     Match the name on the rubric to the requirement title to which the response is made for the selected prerequisite
     and generate a numeric score ranging from 1 -100 based on how closely the response succeeds in satisfiying the conditions.
     Now take each score and generate an overall score that is the average of all scores.
-    Please do not return any text, only an integer score between 1 - 100.
+    Please do not return any text, only an integer score between 75 - 100.
 
     The requirement description is:
 
