@@ -14,7 +14,7 @@ class CompatibleResponse < ApplicationRecord
 
   def assign_employees
     prereq = selected_prerequisite.prerequisite
-    submission.user.employees.where(prerequisite: prereq.name)each do |emp|
+    submission.user.employees.where(prerequisite: prereq.name).each do |emp|
       CompatibleEmployee.create(
         employee: emp,
         compatible_response: self
