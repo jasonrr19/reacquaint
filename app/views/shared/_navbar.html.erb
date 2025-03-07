@@ -2,11 +2,12 @@
   <div class="container-fluid">
     <% if user_signed_in? %>
       <% if current_user.owner %>
-        <%= link_to owner_tenders_path_path_tenders_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+        <%= link_to root_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
           <h4 class="text-white mb-0">Reacquaint</h4>
         <% end %>
       <% else %>
-        <%= link_to bidder_submissions_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+        <%= link_to root_path, class: "navbar-brand ms-4", style: 'font-family: jura;' do %>
+
           <h4 class="text-white mb-0">Reacquaint</h4>
         <% end %>
       <% end %>

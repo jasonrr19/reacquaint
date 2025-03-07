@@ -9,7 +9,7 @@
         <h6 class="m-2"><%= submission.tender.user.company_name %></h6>
         <div class="d-flex align-items-center ">
           <i class="fa-solid fa-chart-line fa-lg"></i>
-          <p class="m-2 text-center fs-6"><%= submission.average_score %>%</p>
+          <p class="m-2 text-center fs-6 <%= score_color(submission.average_score) %>"><%= submission.average_score %>%</p>
         </div>
       <% end %>
     </div>

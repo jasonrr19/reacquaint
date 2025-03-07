@@ -12,13 +12,17 @@
   width: 40px;
 }
 
-// .navbar-lewagon {
-//   display: flex;
-//   height: 96px;
-//   align-items: center;
-//   justify-content: space-between;
-//   background: linear-gradient(rgba(106, 0, 212, 0.486)10%, rgba(87, 13, 167, 0.24) 50%, rgba(61, 3, 123, 0) 100%);  // background-size: 400% 400%;
-// }
+.navbar-lewagon {
+  display: flex;
+  height: 96px;
+  align-items: center;
+  justify-content: space-between;
+  // background: linear-gradient(#014b56c4 10%, #07646c8e 50%, #15d3c60a 100%);
+  // background-size: 400% 400%;
+  // old purple color
+  background: linear-gradient(rgba(106, 0, 212, 0.486)10%, rgba(87, 13, 167, 0.24) 50%, rgba(61, 3, 123, 0) 100%);
+  // background-size: 400% 400%;
+}
 
 @keyframes bg{
   0%{
