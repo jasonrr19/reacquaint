@@ -2,14 +2,14 @@
 //   background-color: black;
 // }
 .single-chart {
-  width: 100%;
-  justify-content: space-around ;
+  width: 45%;
+  justify-content: space-around;
 }
 
 .circular-chart {
   display: block;
   margin: 10px auto;
-  max-width: 80%;
+  max-width: 45%;
   max-height: 250px;
 }
 
@@ -49,4 +49,8 @@
   font-family: sans-serif;
   font-size: 0.5em;
   text-anchor: middle;
+}
+
+.overal_score {
+
 }
