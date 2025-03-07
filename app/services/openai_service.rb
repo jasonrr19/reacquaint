@@ -266,7 +266,7 @@ class OpenaiService
     Match the name on the rubric to the requirement title to which the response is made for the selected prerequisite
     and generate a numeric score ranging from 1 -100 based on how closely the response succeeds in satisfiying the conditions.
     Now take each score and generate an overall score that is the average of all scores.
-    Please do not return any text, only an integer score between 1 - 100.
+    Please do not return any text, only an integer score between 75 - 100.
 
     The requirement description is:
 
@@ -319,6 +319,55 @@ class OpenaiService
 
         •	The previous related compatible responses are:
         #{concat_cr}
+      INSTRUCTIONS
+
+      chatgpt_response = @client.chat(parameters: {
+        model: "gpt-4o-mini",
+        messages: [
+          { role: "user", content: bidder_persona},
+          { role: "user", content: instructions}
+        ]
+      })
+      @result = chatgpt_response["choices"][0]["message"]["content"]
+      renderer = Redcarpet::Render::HTML.new
+      markdown = Redcarpet::Markdown.new(renderer, autolink: true, tables: true)
+      markdown.render(@result)
+  end
+
+  def cr_employee
+    concat_cr_e = ""
+    @compatible_response.compatible_employees.each do |comp_emp|
+      input = "
+      The following is the compatibility and experience statement for #{comp_emp.employee.name} from the #{comp_emp.employee.prerequisite} department:
+
+      #{comp_emp.employee.experience}
+
+      #{comp_emp.employee.why_compatible}
+
+      "
+      concat_cr_e += input
+    end
+    return if concat_cr_e.blank?
+    instructions = <<~INSTRUCTIONS
+      Task:
+        	1.	Read the existing compatible response draft
+	          •	Do not alter, reformat, or change anything while reading.
+	        2.	Read the compatible employees' compatibility and experience statements
+	          •	Do not alter, reformat, or change anything while reading.
+	        3.	Rewrite the existing compatible response draft based on the compatible employees' compatibility and experience statements
+            •	Incorporate previous employee experience as past accomplishments and proven expertise, ensuring they are seamlessly integrated into the revised draft.
+            •	Maintain consistency in tone, structure, and terminology with the existing draft.
+            •	Ensure that past experience of employees are described in a way that aligns with the current response’s context and intent.
+            •	Anonymize all employee names, focusing on describing the employees' expertise, experience, and outcomes instead of their actual names.
+            •	Retain clarity, accuracy, and conciseness while ensuring all relevant past contributions are appropriately reflected.
+            •	Format this rewritten compatible response with headings, bullet points, and other formatting to make it professional and easily readable.
+
+      Source Material:
+        •	The existing compatible response draft is:
+        #{@compatible_response.notes}
+
+        •	The previous related compatible responses are:
+        #{concat_cr_e}
       INSTRUCTIONS
 
       chatgpt_response = @client.chat(parameters: {

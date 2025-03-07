@@ -13,7 +13,7 @@
           <tr>
             <td><%= compatible_employee.employee.name %></td>
             <td><%= compatible_employee.employee.job_title %></td>
-            <td><%= compatible_employee.why_compatible %></td>
+            <td><%= compatible_employee.employee.why_compatible.gsub(/<\/?[^>]*>/, "") %></td>
           </tr>
         <% end %>
       <% else %>

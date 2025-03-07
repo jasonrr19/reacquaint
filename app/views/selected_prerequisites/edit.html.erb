@@ -11,11 +11,9 @@
         <span class="nav-link tab-underlined" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis-tab-pane" role="tab" aria-controls="analysis-tab-pane" aria-selected="false">Analysis</span>
       </li>
       <li class="nav-item" role="presentation">
-        <%= render "selected_prerequisites/team_tab", selected_prerequisite: @selected_prerequisite %>
-      </li>
+        <%= render "selected_prerequisites/team_tab", compatible_response: @selected_prerequisite.tender.user.compatible_responses.find_by(selected_prerequisite: @selected_prerequisite) %>       </li>
       <li class="nav-item" role="presentation">
-        <%= render "selected_prerequisites/response", selected_prerequisite: @selected_prerequisite %>
-      </li>
+        <%= render "selected_prerequisites/response", compatible_response: @selected_prerequisite.tender.user.compatible_responses.find_by(selected_prerequisite: @selected_prerequisite) %>      </li>
     </ul>
   </div>
   <div class="tab-content" id="myTabContent">
