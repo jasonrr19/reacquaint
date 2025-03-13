@@ -52,7 +52,7 @@ rails s
 Inspired by Adi's startup/experience in the construction industry and my experience with real estate and house flipping in Las Vegas.
 
 ## Team Members
-- Jason R. Rocha
+- Jason R. Rocha(https://www.linkedin.com/in/jason-rocha-37188a150/)
 - Aditya Karkera
 - Rafaela Yazawa
 - Christopher Diaz
